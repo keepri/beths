@@ -1,0 +1,18 @@
+{
+  "type": "module",
+  "name": "tickets",
+  "author": "KIPRI",
+  "module": "src/index.ts",
+  "scripts": {
+    "dev": "bun run --watch src/index.ts"
+  },
+  "dependencies": {
+    "@t3-oss/env-core": "^0.7.1",
+    "elysia": "^0.8.5",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/bun": "1.0.0",
+    "typescript": "5.3.3"
+  }
+}
