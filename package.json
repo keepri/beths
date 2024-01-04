@@ -1,18 +1,40 @@
 {
   "type": "module",
+  "version": "0.1.0",
   "name": "tickets",
   "author": "KIPRI",
-  "module": "src/index.ts",
+  "module": "main.ts",
   "scripts": {
-    "dev": "bun run --watch src/index.ts"
-  },
-  "dependencies": {
-    "@t3-oss/env-core": "^0.7.1",
-    "elysia": "^0.8.5",
-    "zod": "^3.22.4"
+    "dev": "concurrently \"bun db:dev\" \"bun tw:dev\" \"bun --hot main.ts\" \"bun db:studio\"",
+    "start": "bun tw && bun main.ts",
+    "db:dev": "turso dev -f ./src/db/data/db.sqlite",
+    "db:check": "bunx drizzle-kit check:sqlite",
+    "db:push": "bun db:check && bunx drizzle-kit push:sqlite",
+    "db:studio": "bunx drizzle-kit studio",
+    "tw": "bunx tailwindcss -i static/main.css -o static/styles.css --minify",
+    "tw:dev": "bunx tailwindcss -i static/main.css -o static/styles.css --watch",
+    "typecheck": "bunx --bun tsc"
   },
   "devDependencies": {
     "@types/bun": "1.0.0",
+    "concurrently": "^8.2.2",
+    "drizzle-kit": "^0.20.9",
+    "tailwindcss": "^3.4.0",
+    "typed-html": "^3.0.1",
     "typescript": "5.3.3"
+  },
+  "dependencies": {
+    "@bogeychan/elysia-logger": "^0.0.14",
+    "@elysiajs/cors": "^0.8.0",
+    "@elysiajs/cron": "^0.8.0",
+    "@elysiajs/html": "^0.8.0",
+    "@elysiajs/static": "^0.8.1",
+    "@kitajs/ts-html-plugin": "^1.3.3",
+    "@libsql/client": "^0.4.0-pre.5",
+    "@t3-oss/env-core": "^0.7.1",
+    "drizzle-orm": "^0.29.2",
+    "elysia": "^0.8.5",
+    "pino-pretty": "^10.3.1",
+    "zod": "^3.22.4"
   }
 }
