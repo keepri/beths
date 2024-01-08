@@ -1,12 +1,11 @@
 import { Elysia, type ElysiaConfig } from "elysia";
 import { staticPlugin } from "@elysiajs/static";
-import { cors } from "@elysiajs/cors";
 
-import { api } from "./api";
-import { pages } from "./pages";
-import { cronJobs } from "./cron";
-import { APP_NAME, env, staticDir } from "./config";
-import { context } from "./context";
+import { APP_NAME, env, staticDir, initCors } from "@/config";
+import { api } from "@/api";
+import { pages } from "@/pages";
+import { cronJobs } from "@/cron";
+import { context } from "@/context";
 
 const APP_CONFIG = Object.freeze({
     name: APP_NAME,
@@ -19,11 +18,7 @@ const APP_CONFIG = Object.freeze({
 } satisfies ElysiaConfig);
 
 export const app = new Elysia(APP_CONFIG)
-    .use(cors({
-        allowedHeaders: "*",
-        origin: env.ORIGIN,
-        credentials: true,
-    }))
+    .use(initCors(env.ORIGIN))
     .use(staticPlugin({ prefix: staticDir("/"), assets: "static" }))
     .use(context)
     .use(cronJobs)
@@ -39,12 +34,12 @@ export const app = new Elysia(APP_CONFIG)
     })
     .onStart(function onStart(app) {
         const server = app.server;
-        if (!server) {
+        if (server === null) {
             return;
         }
-        const mode = env.NODE_ENV === "development" ? "development" : "production";
-        console.log(`🚀 ${app.config.name
-            } is running on ${server.url.protocol}//${server.hostname}:${server.port
-            } in ${mode} mode.`
+        const mode =
+            env.NODE_ENV === "development" ? "development" : "production";
+        console.log(
+            `🚀 ${app.config.name} is running on ${server.url.protocol}//${server.hostname}:${server.port} in ${mode} mode.`,
         );
     });

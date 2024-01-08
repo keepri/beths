@@ -1,15 +1,15 @@
 import Elysia from "elysia";
-import { html } from "@elysiajs/html";
 
-import { BaseHtml } from "../components/base";
+import { BaseHtml } from "@/components/base";
+import { initHtml } from "@/config";
 
 export const pages = new Elysia({ name: "Pages" })
-    .use(html())
+    .use(initHtml())
     .get("/", function homePage() {
         return (
             // @ts-expect-error TODO
             <BaseHtml>
-                <body class="bg-slate-700">
+                <body class="bg-sky-700">
                     <h1 class="text-sky-500">
                         Hello,
                         <span class="text-rose-400"> world!</span>

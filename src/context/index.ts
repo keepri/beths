@@ -1,24 +1,28 @@
 import { Elysia } from "elysia";
-import { type LoggerOptions } from "@bogeychan/elysia-logger/types";
 import { logger as elysiaLogger } from "@bogeychan/elysia-logger";
+import bearer from "@elysiajs/bearer";
 import pretty from "pino-pretty";
 
-import { db } from "../db";
-import { env } from "../config";
+import { db } from "@/db";
+import { env, type Env } from "@/config";
 
 export const context = new Elysia({ name: "Context" })
     .decorate("db", db)
     .decorate("config", { env })
     .use(logger(env.LOG_LEVEL))
+    .use(bearer())
     .derive(function deriveSession(ctx) {
-        const now = performance.now();
+        const start = performance.now();
         const session = null;
-        ctx.log.trace({ ms: (performance.now() - now).toPrecision(3) }, "Checking session.");
+        ctx.log.trace(
+            { ms: (performance.now() - start).toPrecision(3) },
+            "Checking session.",
+        );
 
         return { session };
     });
 
-function logger(level: LoggerOptions["level"]) {
+export function logger(level: Env["LOG_LEVEL"]) {
     return elysiaLogger({
         level,
         stream: pretty({
@@ -26,7 +30,6 @@ function logger(level: LoggerOptions["level"]) {
             colorizeObjects: true,
             translateTime: "SYS:standard",
             levelFirst: true,
-            minimumLevel: level as any,
             singleLine: true,
         }),
     });

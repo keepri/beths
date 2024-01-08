@@ -1,33 +1,47 @@
 {
-  "compilerOptions": {
-    "lib": [
-      "ESNext"
-    ],
-    "target": "ESNext",
-    "module": "ESNext",
-    "moduleDetection": "force",
-    /* JSX */
-    "jsx": "react",
-    "jsxFactory": "Html.createElement",
-    "jsxFragmentFactory": "Html.Fragment",
-    "plugins": [
-      {
-        "name": "@kitajs/ts-html-plugin"
-      }
-    ],
-    "allowJs": true,
-    /* Bundler mode */
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
-    "verbatimModuleSyntax": true,
-    "noEmit": true,
-    /* Linting */
-    "skipLibCheck": true,
-    "strict": true,
-    "noFallthroughCasesInSwitch": true,
-    "forceConsistentCasingInFileNames": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitAny": true
-  }
+    "compilerOptions": {
+        "lib": [
+            "ESNext"
+        ],
+        "target": "ESNext",
+        "module": "ESNext",
+        "moduleDetection": "force",
+        "incremental": true,
+        "paths": {
+            "@/*": [
+                "./src/*"
+            ]
+        },
+        /* JSX */
+        "jsx": "react",
+        "jsxFactory": "Html.createElement",
+        "jsxFragmentFactory": "Html.Fragment",
+        "plugins": [
+            {
+                "name": "@kitajs/ts-html-plugin"
+            }
+        ],
+        "allowJs": true,
+        "checkJs": true,
+        /* Bundler mode */
+        "moduleResolution": "bundler",
+        "allowImportingTsExtensions": true,
+        "verbatimModuleSyntax": true,
+        "noEmit": true,
+        /* Linting */
+        "skipLibCheck": true,
+        "strict": true,
+        "alwaysStrict": true,
+        "noFallthroughCasesInSwitch": true,
+        "forceConsistentCasingInFileNames": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "allowUnreachableCode": false,
+        "noImplicitAny": true
+    },
+    "include": [
+        "main.ts",
+        "**.cjs",
+        "src/**/*"
+    ]
 }

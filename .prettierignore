@@ -1,0 +1,10 @@
+src/db/data/
+src/db/migrations/
+static/
+node_modules/
+.env.*
+.*ignore
+*.lockb
+*.json
+*.md
+tsconfig.tsbuildinfo
