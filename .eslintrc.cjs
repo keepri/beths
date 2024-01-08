@@ -12,23 +12,25 @@ module.exports = {
     plugins: ["@typescript-eslint", "jsdoc"],
     rules: {
         "jsdoc/require-jsdoc": "off",
+        indent: ["warn", 4],
         "@typescript-eslint/indent": ["warn", 4],
         "@typescript-eslint/consistent-type-imports": [
             "warn",
             { fixStyle: "inline-type-imports" },
         ],
+        "comma-dangle": ["warn", "always-multiline"],
         "@typescript-eslint/comma-dangle": ["warn", "always-multiline"],
         "@typescript-eslint/consistent-type-definitions": ["warn", "type"],
         "@typescript-eslint/method-signature-style": ["warn", "method"],
     },
     ignorePatterns: [
-        "src/**/*.test.ts",
+        "node_modules",
         "static/*",
-        "*.lockb",
         "*.md",
+        "*.test.ts",
         ".git",
         ".gitignore",
+        "*.lockb",
         "tsconfig.tsbuildinfo",
-        "node_modules",
     ],
 };
