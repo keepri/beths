@@ -1,4 +1,4 @@
-import { staticDir } from "@/config";
+import { APP_NAME, staticDir } from "@/config";
 
 type Props = {
     children?: JSX.Element | Array<JSX.Element>;
@@ -16,7 +16,7 @@ export function BaseHtml(props?: Props) {
                     name="viewport"
                     content="width=device-width, initial-scale=1.0"
                 />
-                <title>{props?.title ?? "My App"}</title>
+                <title>{props?.title ?? APP_NAME}</title>
                 <script src={staticDir("/htmx.min.js")}></script>
                 <link href={staticDir("/styles.css")} rel="stylesheet" />
             </head>
