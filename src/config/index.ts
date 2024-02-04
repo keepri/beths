@@ -24,6 +24,7 @@ export const env = createEnv({
         HOSTNAME: z.string().min(1).optional().default("127.0.0.1"),
         PORT: z.coerce.number().optional().default(42069),
         DATABASE_AUTH_TOKEN: z.string().min(1).optional(),
+        DATABASE_SYNC_URL: z.string().min(1).optional(),
         LOG_LEVEL: z
             .enum(["fatal", "error", "warn", "info", "debug", "trace"])
             .optional()
