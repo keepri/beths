@@ -14,7 +14,6 @@ export function makeCronJob(
     return cron(
         Object.assign(config, {
             run(cron) {
-                console.log(`Cron job ${config.name} started.`);
                 const start = performance.now();
                 callback(cron)?.then(success)?.catch(fail);
 
