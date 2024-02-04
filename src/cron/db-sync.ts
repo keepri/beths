@@ -1,19 +1,20 @@
-import { type Elysia } from "elysia";
-
 import { makeCronJob } from ".";
+import { EVERY_TWO_MINUTES_PATTERN } from "./patterns";
+
+import { env } from "@/config";
 import { client } from "@/db";
 
-export const CRON_NAME = "db_sync" as const;
-export const CRON_PATTERN = "2 * * * * *" as const;
+export const DB_SYNC_CRON = "db_sync" as const;
 
-export function dbSyncCron(app: Elysia) {
-    return makeCronJob({
-        name: CRON_NAME,
-        pattern: CRON_PATTERN,
-        run() {
-            void client.sync().catch((error: Error) => {
-                console.error("Database sync failed.", error);
-            });
-        },
-    })(app);
-}
+export const dbSyncCron = makeCronJob(
+    { name: DB_SYNC_CRON, pattern: EVERY_TWO_MINUTES_PATTERN },
+    () => {
+        if (!env.DATABASE_SYNC_URL) {
+            return;
+        }
+
+        client.sync().catch((error) => {
+            console.error("Database sync failed.", error);
+        });
+    },
+);

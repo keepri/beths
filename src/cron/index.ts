@@ -5,36 +5,42 @@ import { dbSyncCron } from "./db-sync";
 
 export const cronJobs = new Elysia({ name: "CronJobs" }).use(dbSyncCron);
 
-export function makeCronJob<T extends CronConfig["name"]>(
-    config: CronConfig<T>,
+export function makeCronJob(
+    config: Omit<CronConfig, "run">,
+    callback: CronConfig["run"],
 ) {
-    const name = config.name;
     let fails = 0;
 
     return cron(
         Object.assign(config, {
             run(cron) {
+                console.log(`Cron job ${config.name} started.`);
                 const start = performance.now();
-                void config.run(cron).then(success).catch(fail);
+                callback(cron)?.then(success)?.catch(fail);
 
                 function success() {
                     const diffMs = +(performance.now() - start).toPrecision(2);
                     if (diffMs > 250) {
                         console.warn(
-                            `Cron job ${name} completed in ${diffMs}ms.`,
+                            `Cron job ${config.name} completed in ${diffMs}ms.`,
                         );
                     }
                 }
 
-                function fail() {
+                function fail(error: Error) {
                     if (++fails > 7) {
                         console.error(
-                            `Cron job failed too many times, stopping ${name} cron.`,
+                            `Cron job failed too many times, stopping ${config.name} cron.`,
                         );
                         cron.stop();
+                        return;
                     }
+
+                    console.error(
+                        `Cron job ${config.name} failed. ${error.message}`,
+                    );
                 }
             },
-        } satisfies Omit<CronConfig<T>, "name" | "pattern">),
+        } satisfies Pick<CronConfig, "run">),
     );
 }

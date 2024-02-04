@@ -33,4 +33,5 @@ module.exports = {
         "*.lockb",
         "tsconfig.tsbuildinfo",
     ],
+    include: ["build.ts"]
 };
