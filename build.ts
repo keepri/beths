@@ -12,7 +12,7 @@ const dependencies = Object.keys(packageJson.dependencies);
 
 await build({
     root: "./",
-    entrypoints: ["./src/index.ts"],
+    entrypoints: ["./main.ts"],
     outdir: "./dist",
     splitting: true,
     minify: true,

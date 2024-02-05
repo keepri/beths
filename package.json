@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "concurrently \"bun db:dev\" \"bun tw:dev\" \"bun --watch main.ts\" \"bun db:studio\"",
     "build": "bun build.ts",
-    "start": "bun ./dist/src/index.js",
+    "start": "bun ./dist/main.js",
     "db:dev": "turso dev -f ./src/db/data/db.sqlite",
     "db:check": "drizzle-kit check:sqlite --config drizzle.config.cjs",
     "db:push": "bun db:check && drizzle-kit push:sqlite --config drizzle.config.cjs",
