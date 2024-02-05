@@ -7,6 +7,7 @@ export const pages = new Elysia({ name: "Pages" })
     .use(initHtml())
     .get("/", function homePage() {
         return (
+            // @ts-expect-error
             <BaseHtml>
                 <body class="bg-sky-700">
                     <h1 class="text-sky-500">
