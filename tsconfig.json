@@ -41,6 +41,7 @@
     },
     "include": [
         "main.ts",
+        "build.ts",
         "**.cjs",
         "src/**/*"
     ]
