@@ -1,9 +1,18 @@
 import { Elysia } from "elysia";
 import { cron, type CronConfig } from "@elysiajs/cron";
 
-import { dbSyncCron } from "./db-sync";
+import { DB_SYNC_CRON, dbSyncCron } from "./db-sync";
 
-export const cronJobs = new Elysia({ name: "CronJobs" }).use(dbSyncCron);
+export const cronJobs = new Elysia({ name: "CronJobs" }).use(
+    register(DB_SYNC_CRON, dbSyncCron),
+);
+
+function register(name: string, cron: (app: Elysia) => Elysia) {
+    return function callback(app: Elysia) {
+        console.log(`Cron job ${name} registered.`);
+        return cron(app);
+    };
+}
 
 export function makeCronJob(
     config: Omit<CronConfig, "run">,
