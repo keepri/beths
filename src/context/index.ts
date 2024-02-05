@@ -11,13 +11,8 @@ export const context = new Elysia({ name: "Context" })
     .decorate("config", { env })
     .use(logger(env.LOG_LEVEL))
     .use(bearer())
-    .derive(function deriveSession(ctx) {
-        const start = performance.now();
+    .derive(function deriveSession() {
         const session = null;
-        ctx.log.trace(
-            { ms: (performance.now() - start).toPrecision(3) },
-            "Checking session.",
-        );
 
         return { session };
     });
