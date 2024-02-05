@@ -24,10 +24,10 @@ await write(file("./dist/package.json"), await PACKAGE_JSON.arrayBuffer());
 await write(file("./dist/.env"), await DOT_ENV.arrayBuffer());
 
 spawnSync(["bun", "tw"]);
-
 spawn({ cmd: [mv, "-r", "./static", "./dist/static"] });
+
 if (isProduction) {
-    spawn({ cmd: [mv, "-r", "./node_modules", "./dist/node_modules"] });
+    spawn({ cmd: ["mv", "./node_modules", "./dist/node_modules"] });
 } else {
     spawn(["bun", "install"], { cwd: "./dist" });
 }

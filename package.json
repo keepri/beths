@@ -6,7 +6,7 @@
   "module": "main.ts",
   "scripts": {
     "dev": "concurrently \"bun db:dev\" \"bun tw:dev\" \"bun --watch main.ts\" \"bun db:studio\"",
-    "build": "bun tw && bun build.ts",
+    "build": "bun build.ts",
     "start": "bun ./dist/src/index.js",
     "db:dev": "turso dev -f ./src/db/data/db.sqlite",
     "db:check": "drizzle-kit check:sqlite --config drizzle.config.cjs",
