@@ -1,13 +1,16 @@
 import { APP_NAME, staticDir } from "@/config";
+import { Html } from "@elysiajs/html";
 
-type Props = {
-    children?: JSX.Element | Array<JSX.Element>;
+type Languages = "en";
+
+type Props = Html.PropsWithChildren<{
     title?: string;
-    lang?: "en";
-};
+    lang?: Languages;
+}>;
 
-export function BaseHtml(props?: Props) {
+export function BaseHtml(props: Props) {
     const safeChildren = props?.children;
+
     return (
         <html lang={props?.lang || "en"}>
             <head>
