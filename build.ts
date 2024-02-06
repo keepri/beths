@@ -25,10 +25,4 @@ await write(file("./dist/.env"), await DOT_ENV.arrayBuffer());
 
 spawnSync(["bun", "tw"]);
 spawn({ cmd: [mv, "-r", "./static", "./dist/static"] });
-
-if (isProduction) {
-    spawn({ cmd: ["mv", "./node_modules", "./dist/node_modules"] });
-} else {
-    // This is not necessarily needed
-    spawn(["bun", "install"], { cwd: "./dist" });
-}
+spawn(["bun", "install"], { cwd: "./dist" });
