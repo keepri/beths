@@ -1,5 +1,5 @@
 /** @type {import("prettier").Options} */
-const config = {
+export default {
     parser: "typescript",
     printWidth: 80,
     tabWidth: 4,
@@ -11,5 +11,3 @@ const config = {
     arrowParens: "always",
     trailingComma: "all",
 };
-
-module.exports = config;

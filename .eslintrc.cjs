@@ -1,4 +1,5 @@
-module.exports = {
+/** @type {import("eslint").Linter.Config} */
+const config = {
     root: true,
     extends: [
         "eslint:recommended",
@@ -8,6 +9,11 @@ module.exports = {
     parser: "@typescript-eslint/parser",
     parserOptions: {
         project: ["./tsconfig.json"],
+        sourceType: "module",
+        ecmaVersion: "latest",
+        ecmaFeatures: {
+            jsx: true,
+        },
     },
     plugins: ["@typescript-eslint", "jsdoc"],
     rules: {
@@ -25,12 +31,14 @@ module.exports = {
     },
     ignorePatterns: [
         "node_modules",
-        "static/*",
-        "*.md",
-        "*.test.ts",
+        "dist",
+        "static",
         ".git",
         ".gitignore",
+        "*.md",
         "*.lockb",
         "tsconfig.tsbuildinfo",
     ],
 };
+
+module.exports = config;

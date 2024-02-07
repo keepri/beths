@@ -1,7 +1,7 @@
-const { env } = require("./src/config");
+import { env } from "./src/config";
 
 /** @type {import("drizzle-kit").Config} */
-const config = {
+export default {
     strict: true,
     verbose: true,
     driver: "turso",
@@ -12,5 +12,3 @@ const config = {
         authToken: env.DATABASE_AUTH_TOKEN,
     },
 };
-
-module.exports = config;

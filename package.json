@@ -1,7 +1,7 @@
 {
   "type": "module",
-  "version": "0.1.0",
-  "name": "tickets",
+  "version": "0.1.1",
+  "name": "beth",
   "author": "KIPRI",
   "module": "main.ts",
   "scripts": {
@@ -9,17 +9,18 @@
     "make": "bun build.ts",
     "start": "bun ./dist/main.js",
     "db:dev": "turso dev -f ./src/db/data/db.sqlite",
-    "db:check": "drizzle-kit check:sqlite --config drizzle.config.cjs",
-    "db:push": "bun db:check && drizzle-kit push:sqlite --config drizzle.config.cjs",
-    "db:studio": "drizzle-kit studio --config drizzle.config.cjs",
-    "tw": "tailwindcss -i static/main.css -o static/styles.css --minify --config tailwind.config.cjs",
-    "tw:dev": "tailwindcss -i static/main.css -o static/styles.css --watch --config tailwind.config.cjs",
+    "db:check": "drizzle-kit check:sqlite --config drizzle.config.js",
+    "db:push": "bun db:check && drizzle-kit push:sqlite --config drizzle.config.js",
+    "db:studio": "drizzle-kit studio --config drizzle.config.js",
+    "tw": "tailwindcss -i static/main.css -o static/styles.css --minify --config tailwind.config.js",
+    "tw:dev": "tailwindcss -i static/main.css -o static/styles.css --watch --config tailwind.config.js",
     "typecheck": "bunx --bun tsc",
     "format": "prettier . --write",
     "lint": "eslint ."
   },
   "devDependencies": {
     "@types/bun": "latest",
+    "@types/eslint": "^8.56.2",
     "@typescript-eslint/eslint-plugin": "latest",
     "@typescript-eslint/parser": "latest",
     "concurrently": "^8.2.2",
