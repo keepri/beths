@@ -1,5 +1,5 @@
 /** @type {import("prettier").Options} */
-export default {
+module.exports = {
     parser: "typescript",
     printWidth: 80,
     tabWidth: 4,

@@ -1,5 +1,5 @@
 /** @type {import("eslint").Linter.Config} */
-const config = {
+module.exports = {
     root: true,
     extends: [
         "eslint:recommended",
@@ -40,5 +40,3 @@ const config = {
         "tsconfig.tsbuildinfo",
     ],
 };
-
-module.exports = config;
