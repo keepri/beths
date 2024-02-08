@@ -1,9 +1,9 @@
-import { fromStatic } from "@/config";
+import { staticDir } from "@/config";
 
 export function Scripts() {
     return (
         <>
-            <script src={fromStatic("/htmx.min.js")}> </script>
+            <script src={staticDir("/htmx.min.js")}> </script>
         </>
     );
 }

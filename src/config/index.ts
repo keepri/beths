@@ -5,8 +5,13 @@ import { z } from "zod";
 
 export const APP_NAME = "App" as const;
 
-export function fromStatic(path?: string): string {
-    return `/static${path ?? ""}`;
+export function staticDir(path?: string): string {
+    return `static${path ?? ""}`;
+}
+
+export function buildDir(path?: string): string {
+    // when changing this, also change package.json `start` script
+    return `out${path ?? ""}`;
 }
 
 export const env = createEnv({

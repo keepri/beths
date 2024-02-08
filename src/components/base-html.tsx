@@ -1,7 +1,7 @@
 import { Html } from "@elysiajs/html";
 
 import { Scripts } from "@/components/scripts";
-import { APP_NAME, fromStatic } from "@/config";
+import { APP_NAME, staticDir } from "@/config";
 
 type Languages = "en";
 
@@ -24,7 +24,7 @@ export function BaseHtml(props: Props) {
                     content="width=device-width, initial-scale=1.0"
                 />
 
-                <link href={fromStatic("/styles.css")} rel="stylesheet" />
+                <link href={staticDir("/styles.css")} rel="stylesheet" />
 
                 <Scripts />
             </head>
