@@ -1,4 +1,4 @@
-import { spawn, spawnSync, build, file, write, env } from "bun";
+import { build, env, file, spawn, spawnSync, write } from "bun";
 
 const PACKAGE_JSON = file("./package.json");
 const DOT_ENV = file("./.env.local");

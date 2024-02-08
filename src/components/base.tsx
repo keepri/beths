@@ -1,5 +1,6 @@
-import { APP_NAME, staticDir } from "@/config";
 import { Html } from "@elysiajs/html";
+
+import { APP_NAME, staticDir } from "@/config";
 
 type Languages = "en";
 

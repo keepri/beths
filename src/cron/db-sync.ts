@@ -1,8 +1,8 @@
-import { makeCronJob } from ".";
-import { EVERY_TWO_MINUTES_PATTERN } from "./patterns";
-
 import { env } from "@/config";
 import { client } from "@/db";
+
+import { makeCronJob } from ".";
+import { EVERY_TWO_MINUTES_PATTERN } from "./patterns";
 
 export const DB_SYNC_CRON = "db_sync" as const;
 

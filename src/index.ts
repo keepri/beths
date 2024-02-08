@@ -1,11 +1,11 @@
-import { Elysia, type ElysiaConfig } from "elysia";
 import { staticPlugin } from "@elysiajs/static";
+import { Elysia, type ElysiaConfig } from "elysia";
 
-import { APP_NAME, env, staticDir, initCors } from "@/config";
 import { api } from "@/api";
-import { pages } from "@/pages";
-import { cronJobs } from "@/cron";
+import { APP_NAME, env, initCors, staticDir } from "@/config";
 import { context } from "@/context";
+import { cronJobs } from "@/cron";
+import { pages } from "@/pages";
 
 const APP_CONFIG = Object.freeze({
     name: APP_NAME,

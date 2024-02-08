@@ -1,10 +1,10 @@
-import { Elysia } from "elysia";
 import { logger as elysiaLogger } from "@bogeychan/elysia-logger";
 import bearer from "@elysiajs/bearer";
+import { Elysia } from "elysia";
 import pretty from "pino-pretty";
 
+import { type Env, env } from "@/config";
 import { db } from "@/db";
-import { env, type Env } from "@/config";
 
 export const context = new Elysia({ name: "Context" })
     .decorate("db", db)

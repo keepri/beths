@@ -1,5 +1,5 @@
+import { type CronConfig, cron } from "@elysiajs/cron";
 import { Elysia } from "elysia";
-import { cron, type CronConfig } from "@elysiajs/cron";
 
 import { DB_SYNC_CRON, dbSyncCron } from "./db-sync";
 
