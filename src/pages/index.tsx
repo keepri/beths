@@ -1,6 +1,6 @@
 import Elysia from "elysia";
 
-import { BaseHtml } from "@/components/base";
+import { BaseHtml } from "@/components/base-html";
 import { initHtml } from "@/config";
 
 export const pages = new Elysia({ name: "Pages" })
