@@ -14,7 +14,6 @@ await build({
     root: "./",
     entrypoints: ["./main.ts"],
     outdir: "./dist",
-    splitting: true,
     minify: true,
     plugins: [],
     external: dependencies,
