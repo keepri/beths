@@ -1,6 +1,11 @@
 /** @type {import("eslint").Linter.Config} */
 module.exports = {
     root: true,
+    env: {
+        browser: true,
+        node: true,
+        amd: true,
+    },
     extends: [
         "eslint:recommended",
         "plugin:@typescript-eslint/recommended",
