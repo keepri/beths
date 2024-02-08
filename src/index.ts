@@ -2,7 +2,7 @@ import { staticPlugin } from "@elysiajs/static";
 import { Elysia, type ElysiaConfig } from "elysia";
 
 import { api } from "@/api";
-import { APP_NAME, env, initCors, staticDir } from "@/config";
+import { APP_NAME, env, fromStatic, initCors } from "@/config";
 import { context } from "@/context";
 import { cronJobs } from "@/cron";
 import { pages } from "@/pages";
@@ -19,7 +19,7 @@ const APP_CONFIG = Object.freeze({
 
 export const app = new Elysia(APP_CONFIG)
     .use(initCors())
-    .use(staticPlugin({ prefix: staticDir("/"), assets: "static" }))
+    .use(staticPlugin({ prefix: fromStatic(), assets: "static" }))
     .use(context)
     .use(cronJobs)
     .use(api)

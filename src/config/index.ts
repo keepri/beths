@@ -4,10 +4,9 @@ import { createEnv } from "@t3-oss/env-core";
 import { z } from "zod";
 
 export const APP_NAME = "App" as const;
-const STATIC_DIR = "" as const;
 
-export function staticDir(path?: string): string {
-    return `${STATIC_DIR}${path}`;
+export function fromStatic(path?: string): string {
+    return `/static${path ?? ""}`;
 }
 
 export const env = createEnv({
