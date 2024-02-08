@@ -34,8 +34,12 @@ export const env = createEnv({
 
 export type Env = typeof env;
 
-export function initCors(origin: Env["ORIGIN"]) {
-    return cors({ allowedHeaders: "*", origin, credentials: true });
+export function initCors() {
+    return cors({
+        allowedHeaders: "*",
+        origin: [env.ORIGIN],
+        credentials: true,
+    });
 }
 
 export function initHtml() {

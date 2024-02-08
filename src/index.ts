@@ -18,7 +18,7 @@ const APP_CONFIG = Object.freeze({
 } satisfies ElysiaConfig);
 
 export const app = new Elysia(APP_CONFIG)
-    .use(initCors(env.ORIGIN))
+    .use(initCors())
     .use(staticPlugin({ prefix: staticDir("/"), assets: "static" }))
     .use(context)
     .use(cronJobs)
