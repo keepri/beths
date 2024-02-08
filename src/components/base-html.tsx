@@ -1,6 +1,7 @@
 import { Html } from "@elysiajs/html";
 
-import { APP_NAME, staticDir } from "@/config";
+import { Scripts } from "@/components/scripts";
+import { APP_NAME, fromStatic } from "@/config";
 
 type Languages = "en";
 
@@ -15,14 +16,17 @@ export function BaseHtml(props: Props) {
     return (
         <html lang={props?.lang || "en"}>
             <head>
+                <title>{props?.title ?? APP_NAME}</title>
+
                 <meta charset="UTF-8" />
                 <meta
                     name="viewport"
                     content="width=device-width, initial-scale=1.0"
                 />
-                <title>{props?.title ?? APP_NAME}</title>
-                <script src={staticDir("/htmx.min.js")}></script>
-                <link href={staticDir("/styles.css")} rel="stylesheet" />
+
+                <link href={fromStatic("/styles.css")} rel="stylesheet" />
+
+                <Scripts />
             </head>
 
             {safeChildren}
