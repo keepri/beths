@@ -150,9 +150,10 @@ static/styles.css
 
 .fusebox/
 
-# DynamoDB Local files
+# Database Local files
 
 .dynamodb/
+src/db/data
 
 # TernJS port file
 
