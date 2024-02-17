@@ -25,11 +25,13 @@ export const app = new Elysia(APP_CONFIG)
     .use(api)
     .use(pages)
     .onError(function onError(ctx) {
-        ctx.log.error(ctx.error);
         const status: number = "status" in ctx.error ? ctx.error.status : 500;
+        const message = ctx.error.message || "Something went wrong.";
 
-        return new Response(ctx.error.message || "Something went wrong.", {
+        return new Response(message, {
             status,
+            statusText:
+                "code" in ctx.error ? ctx.error.code : "Internal Server Error",
         });
     })
     .onStart(function onStart(app) {

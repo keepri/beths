@@ -9,7 +9,7 @@ export const pages = new Elysia({ name: "Pages" })
         return (
             <BaseHtml>
                 <body class="bg-sky-700">
-                    <h1 class="text-sky-500">
+                    <h1 id="hello" class="text-sky-500">
                         Hello,
                         <span class="text-rose-400"> world!</span>
                     </h1>

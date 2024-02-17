@@ -41,7 +41,7 @@
     },
     "include": [
         "main.ts",
-        "build.ts",
+        "build*.ts",
         "src/**/*.ts",
         "src/**/*.tsx",
         "**.*js"
