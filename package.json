@@ -6,13 +6,13 @@
   "author": "KIPRI",
   "scripts": {
     "dev": "concurrently \"bun db:dev\" \"bun db:studio\" \"bun tw:dev\" \"bun --watch main.ts\" \"bun js:dev\"",
-    "make": "bun build.ts",
+    "make": "bun scripts/build/build.ts",
     "start": "bun out/main.js",
     "db:dev": "turso dev -f src/db/data/db.sqlite",
     "db:check": "drizzle-kit check:sqlite",
     "db:push": "bun db:check && drizzle-kit push:sqlite",
     "db:studio": "drizzle-kit studio",
-    "js:dev": "bun build-js.ts",
+    "js:dev": "bun scripts/build/build-js.ts",
     "tw": "tailwindcss -i static/main.css -o static/styles.css --minify",
     "tw:dev": "tailwindcss -i static/main.css -o static/styles.css --watch",
     "typecheck": "bunx --bun tsc",
@@ -25,6 +25,7 @@
     "@types/eslint": "^8.56.2",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
+    "bun-plugin-solid": "^1.0.0",
     "concurrently": "^8.2.2",
     "drizzle-kit": "^0.20.14",
     "eslint": "^8.56.0",
@@ -40,12 +41,13 @@
     "@elysiajs/cron": "^0.8.0",
     "@elysiajs/html": "^0.8.0",
     "@elysiajs/static": "^0.8.1",
-    "@kitajs/ts-html-plugin": "^1.3.4",
     "@libsql/client": "^0.4.0-pre.5",
     "@t3-oss/env-core": "^0.8.0",
     "drizzle-orm": "^0.29.3",
     "elysia": "^0.8.16",
     "pino-pretty": "^10.3.1",
+    "solid-element": "^1.8.0",
+    "solid-js": "^1.8.15",
     "zod": "^3.22.4"
   }
 }

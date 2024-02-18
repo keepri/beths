@@ -1,11 +1,10 @@
-import { Html } from "@elysiajs/html";
+import { type ParentProps } from "solid-js";
 
-import { Scripts } from "@/components/scripts";
 import { APP_NAME, staticDir } from "@/config";
 
 type Languages = "en";
 
-type Props = Html.PropsWithChildren<{
+type Props = ParentProps<{
     title?: string;
     lang?: Languages;
 }>;
@@ -26,7 +25,8 @@ export function BaseHtml(props: Props) {
 
                 <link href={staticDir("/styles.css")} rel="stylesheet" />
 
-                <Scripts />
+                <script src={staticDir("/htmx.min.js")} />
+                <script type="module" src={staticDir("/bundle.min.js")} />
             </head>
 
             {safeChildren}

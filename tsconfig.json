@@ -5,15 +5,20 @@
         ],
         "target": "ESNext",
         "module": "ESNext",
-        "moduleDetection": "force",
         "incremental": true,
         "paths": {
             "@/*": [
                 "./src/*"
             ]
         },
+        "types": [
+            "solid-js",
+            "solid-js/dom"
+        ],
         /* JSX */
-        "jsx": "react",
+        "jsx": "react-jsx",
+        "jsxImportSource": "solid-js",
+        /* Server-side JSX */
         "jsxFactory": "Html.createElement",
         "jsxFragmentFactory": "Html.Fragment",
         "plugins": [
@@ -24,7 +29,7 @@
         "allowJs": true,
         "checkJs": true,
         /* Bundler mode */
-        "moduleResolution": "bundler",
+        "moduleResolution": "node",
         "allowImportingTsExtensions": true,
         "verbatimModuleSyntax": true,
         "noEmit": true,
@@ -41,9 +46,10 @@
     },
     "include": [
         "main.ts",
-        "build*.ts",
         "src/**/*.ts",
         "src/**/*.tsx",
-        "**.*js"
+        "scripts/**/*.ts",
+        "**.*js",
+        "*.d.ts"
     ]
 }
