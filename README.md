@@ -5,3 +5,8 @@
 - [Turso](https://turso.tech)
 - [HTMX](https://htmx.org)
 - [Solid](https://www.solidjs.com)
+
+
+- [TailwindCSS](https://tailwindcss.com)
+- [DrizzleORM](https://orm.drizzle.team)
+- [Zod](https://zod.dev)
