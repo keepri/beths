@@ -1,5 +1,3 @@
-import { customElement } from "solid-element";
-
-import { DemoComponent, initProps } from "./components/demo-component";
-
-customElement<typeof initProps>("demo-component", initProps, DemoComponent);
+// Purpose: Browser entry point file.
+// \_ This file will be the entry point to the client-side js bundle.
+import "./components/web";

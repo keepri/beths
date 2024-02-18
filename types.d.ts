@@ -13,7 +13,7 @@ declare module "solid-js/types/jsx" {
         // You can alternatively use `[componentName: string]: HtmlTag;` to allow any custom element name.
         // eslint-disable-next-line
         interface IntrinsicElements {
-            "demo-component": Props<{ foo: string }>;
+            "x-demo": Props<{ foo: string }>;
         }
     }
 }

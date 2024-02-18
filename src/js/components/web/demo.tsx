@@ -1,15 +1,18 @@
 import { type ComponentOptions } from "component-register";
 import { noShadowDOM } from "solid-element";
+import { customElement } from "solid-element";
 import { createSignal } from "solid-js";
+import { isServer } from "solid-js/web";
 
-import { Button } from "./button";
+import { Button } from "../button";
 
-export const initProps = { foo: "" };
+type Props = {
+    foo: string;
+};
 
-export function DemoComponent(
-    props: typeof initProps,
-    { element }: ComponentOptions,
-) {
+const INIT_PROPS: Props = { foo: "" } as const;
+
+export function Demo(props: Props, { element }: ComponentOptions) {
     noShadowDOM();
 
     const safeFoo = props.foo;
@@ -31,4 +34,8 @@ export function DemoComponent(
             <p class="text-green-300">{safeFoo}</p>
         </>
     );
+}
+
+if (!isServer) {
+    customElement<Props>("x-demo", INIT_PROPS, Demo);
 }
