@@ -20,16 +20,16 @@ export function Demo(props: Props, { element }: ComponentOptions) {
     const [msg, setMsg] = createSignal<string>("");
 
     function handleClick() {
-        setMsg("hi");
+        setMsg("Hello from Solid!");
     }
 
     return (
         <>
+            {element.children[0] as "safe"}
+
             <h1 class="text-red-400">{msg() as "safe"}</h1>
 
             <Button onClick={handleClick}>say hi</Button>
-
-            {element.children[0] as "safe"}
 
             <p class="text-green-300">{safeFoo}</p>
         </>
