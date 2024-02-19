@@ -1,12 +1,12 @@
 import { cors } from "@elysiajs/cors";
-import { html } from "@elysiajs/html";
+import { type HtmlOptions, html } from "@elysiajs/html";
 import { createEnv } from "@t3-oss/env-core";
 import { z } from "zod";
 
 export const APP_NAME = "App" as const;
 const STATIC_DIR = "static" as const;
 // when changing this, also change package.json `start` script
-const OUT_DIR = "out" as const;
+const OUT_DIR = ".out" as const;
 
 export function staticDir(path?: string): string {
     path ??= "";
@@ -52,6 +52,6 @@ export function initCors() {
     });
 }
 
-export function initHtml() {
-    return html({ autoDoctype: "full" });
+export function initHtml(options?: HtmlOptions) {
+    return html(Object.assign({ autoDoctype: "full" }, options));
 }

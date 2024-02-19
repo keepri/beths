@@ -22,8 +22,8 @@ module.exports = {
     plugins: ["@typescript-eslint", "jsdoc"],
     rules: {
         "jsdoc/require-jsdoc": "off",
-        indent: ["warn", 4],
-        "@typescript-eslint/indent": ["warn", 4],
+        indent: ["warn", 4, { SwitchCase: 1 }],
+        "@typescript-eslint/indent": ["warn", 4, { SwitchCase: 1 }],
         "@typescript-eslint/consistent-type-imports": [
             "warn",
             { fixStyle: "inline-type-imports" },
