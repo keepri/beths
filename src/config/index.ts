@@ -8,13 +8,11 @@ const STATIC_DIR = "static" as const;
 // when changing this, also change package.json `start` script
 const OUT_DIR = ".out" as const;
 
-export function staticDir(path?: string): string {
-    path ??= "";
+export function staticDir(path: string = ""): string {
     return STATIC_DIR + path;
 }
 
-export function buildDir(path?: string): string {
-    path ??= "";
+export function buildDir(path: string = ""): string {
     return OUT_DIR + path;
 }
 
