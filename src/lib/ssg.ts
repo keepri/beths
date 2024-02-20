@@ -38,7 +38,7 @@ async function renderPage<T extends object>(
     Page: (props?: T) => JSX.Element,
     file: BunFile,
 ) {
-    return await renderToStringAsync(() => Page()).then(async (html) => {
+    return await renderToStringAsync(Page).then((html) => {
         html = html.replaceAll("&lt;", "<").replaceAll("&gt;", ">");
 
         const writer = file.writer();

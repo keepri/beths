@@ -13,5 +13,6 @@ export const pages = new Elysia({ name: "Pages" })
             tag: "home-page",
             revalidateMs: Millis.day(7),
         });
+
         return page;
     });
