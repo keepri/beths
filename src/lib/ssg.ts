@@ -7,8 +7,12 @@ import { buildDir, staticDir } from "@/config";
 
 export async function withSSG(
     Page: () => JSX.Element,
-    options: { tag: string; revalidateMs?: number },
-): Promise<string> {
+    options: { tag: string; revalidateMs?: number; disable?: boolean },
+): Promise<string | JSX.Element> {
+    if (options.disable) {
+        return Page();
+    }
+
     const cachePath = join(buildDir(), staticDir(), "pages");
 
     if (!(await file(cachePath).exists())) {

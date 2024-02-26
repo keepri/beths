@@ -1,17 +1,24 @@
 import Elysia from "elysia";
+import { TimeSpan } from "lucia";
 
-import { initHtml } from "@/config";
-import { HomePage } from "@/lib/pages";
+import { IS_PRODUCTION, initHtml } from "@/config";
+import { context } from "@/context";
+import { HomePage, type HomePageProps } from "@/lib/pages";
 import { withSSG } from "@/lib/ssg";
-import { Millis } from "@/lib/time";
 
-export const pages = new Elysia({ name: "Pages" })
+export const pagesRoute = new Elysia({ name: "Pages" })
     .decorate("ssg", withSSG)
     .use(initHtml())
+    .use(context)
     .get("/", async function homePage(ctx) {
-        const page = await ctx.ssg(HomePage, {
+        const props: HomePageProps = {
+            user: ctx.user,
+        };
+
+        const page = await ctx.ssg(HomePage.bind(null, props), {
             tag: "home-page",
-            revalidateMs: Millis.day(7),
+            revalidateMs: new TimeSpan(7, "d").milliseconds(),
+            disable: !IS_PRODUCTION,
         });
 
         return page;

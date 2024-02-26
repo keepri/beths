@@ -15,5 +15,10 @@ declare module "solid-js/types/jsx" {
         interface IntrinsicElements {
             "x-demo": Props<{ foo: string }>;
         }
+
+        // eslint-disable-next-line
+        interface HTMLAttributes {
+            safe?: boolean;
+        }
     }
 }

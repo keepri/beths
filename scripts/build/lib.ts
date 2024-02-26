@@ -21,7 +21,3 @@ export async function extractDependencies(packageJson: BunFile) {
 
     return deps;
 }
-
-export function isProduction(nodeEnv: string | undefined): boolean {
-    return nodeEnv === "production";
-}

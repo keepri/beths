@@ -23,9 +23,10 @@ export const env = createEnv({
     server: {
         // server
         NODE_ENV: z.enum(["development", "production"]),
-        ORIGIN: z.string().min(1),
-        HOSTNAME: z.string().min(1).optional().default("127.0.0.1"),
+        HOST: z.string().min(1).optional().default("127.0.0.1"),
         PORT: z.coerce.number().optional().default(42069),
+        GITHUB_CLIENT_ID: z.string().min(1),
+        GITHUB_CLIENT_SECRET: z.string().min(1),
 
         // database
         DATABASE_URL: z.string().min(1),
@@ -42,12 +43,20 @@ export const env = createEnv({
 
 export type Env = typeof env;
 
+export const IS_PRODUCTION = env.NODE_ENV === "production";
+
 export function initCors() {
     return cors({
         allowedHeaders: "*",
-        origin: [env.ORIGIN],
+        origin: [origin(), "https://github.com"],
         credentials: true,
     });
+}
+
+export function origin() {
+    const protocol = IS_PRODUCTION ? "https://" : "http://";
+    const port = IS_PRODUCTION ? "" : `:${env.PORT}`;
+    return protocol + env.HOST + port;
 }
 
 export function initHtml(options?: HtmlOptions) {

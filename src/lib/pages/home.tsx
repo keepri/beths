@@ -1,6 +1,12 @@
+import { type User } from "lucia";
+
 import { BaseHtml } from "../components/base-html";
 
-export function HomePage() {
+export type HomePageProps = {
+    user: User | null;
+};
+
+export function HomePage(props: HomePageProps) {
     return (
         <BaseHtml>
             <body class="bg-sky-700">
@@ -12,6 +18,21 @@ export function HomePage() {
                 <x-demo foo="bar">
                     <h1 class="text-blue-300">Hello from child node.</h1>
                 </x-demo>
+
+                {props.user && (
+                    <p safe class="text-purple-300">
+                        Welcome, {props.user.username}.
+                    </p>
+                )}
+
+                {!props.user && (
+                    <a
+                        href="/api/v1/login/github"
+                        class="text-teal-300 underline"
+                    >
+                        Sign in with GitHub
+                    </a>
+                )}
             </body>
         </BaseHtml>
     );

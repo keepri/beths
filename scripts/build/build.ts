@@ -1,13 +1,13 @@
-import { build, env, file, spawn, spawnSync, write } from "bun";
+import { build, file, spawn, spawnSync, write } from "bun";
 
-import { buildDir, staticDir } from "@/config";
+import { IS_PRODUCTION, buildDir, staticDir } from "@/config";
 
-import { buildJs, extractDependencies, isProduction } from "./lib";
+import { buildJs, extractDependencies } from "./lib";
 
 const DOT_ENV = file(".env.local");
 const PACKAGE_JSON = file("package.json");
 const DEPS = await extractDependencies(PACKAGE_JSON);
-const MV_CMD = isProduction(env.NODE_ENV) ? "mv" : "cp";
+const MV_CMD = IS_PRODUCTION ? "mv" : "cp";
 
 // build server
 await build({
@@ -15,7 +15,8 @@ await build({
     entrypoints: ["main.ts"],
     outdir: buildDir(),
     minify: true,
-    external: DEPS,
+    // we are concatting these dependencies for Lucia auth
+    external: DEPS.concat(["@node-rs/argon2", "@node-rs/bcrypt"]),
 });
 
 await buildJs();

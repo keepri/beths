@@ -1,17 +1,17 @@
 import { staticPlugin } from "@elysiajs/static";
 import { Elysia, type ElysiaConfig } from "elysia";
 
-import { APP_NAME, env, initCors, staticDir } from "@/config";
+import { APP_NAME, IS_PRODUCTION, env, initCors, staticDir } from "@/config";
 import { context } from "@/context";
 import { cronJobs } from "@/cron";
-import { api, pages } from "@/routes";
+import { apiRoute, pagesRoute } from "@/routes";
 
 const APP_CONFIG = Object.freeze({
     name: APP_NAME,
     serve: {
-        hostname: env.HOSTNAME,
+        hostname: env.HOST,
         port: env.PORT,
-        development: env.NODE_ENV === "development",
+        development: !IS_PRODUCTION,
         maxRequestBodySize: 1024 * 1024 * 4, // 4mb
     },
 } satisfies ElysiaConfig);
@@ -21,8 +21,8 @@ export const app = new Elysia(APP_CONFIG)
     .use(staticPlugin({ prefix: staticDir(), assets: "static" }))
     .use(context)
     .use(cronJobs)
-    .use(api)
-    .use(pages)
+    .use(apiRoute)
+    .use(pagesRoute)
     .onError(function onError(ctx) {
         const status: number = "status" in ctx.error ? ctx.error.status : 500;
         const message = ctx.error.message || "Something went wrong.";
@@ -38,9 +38,7 @@ export const app = new Elysia(APP_CONFIG)
         if (server === null) {
             return;
         }
-        const mode =
-            env.NODE_ENV === "development" ? "development" : "production";
         console.log(
-            `🚀 ${app.config.name} is running on ${server.url.protocol}//${server.hostname}:${server.port} in ${mode} mode.`,
+            `🚀 ${app.config.name} is running on ${server.url.protocol}//${server.hostname}:${server.port} in ${env.NODE_ENV} mode.`,
         );
     });
