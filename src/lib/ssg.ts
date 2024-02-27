@@ -3,13 +3,16 @@ import { join } from "path";
 import { type JSX } from "solid-js";
 import { renderToStringAsync } from "solid-js/web";
 
-import { buildDir, staticDir } from "@/config";
+import { IS_PRODUCTION, buildDir, staticDir } from "@/config";
 
 export async function withSSG(
+    // TODO make Page generic with props, also it should be awaitable
     Page: () => JSX.Element,
-    options: { tag: string; revalidateMs?: number; disable?: boolean },
+    options: { tag: string; revalidateMs?: number; disabled?: boolean },
 ): Promise<string | JSX.Element> {
-    if (options.disable) {
+    options.disabled ??= !IS_PRODUCTION;
+
+    if (options.disabled) {
         return Page();
     }
 
@@ -19,12 +22,15 @@ export async function withSSG(
         spawnSync(["mkdir", "-p", cachePath]);
     }
 
-    const cachedFile = file(`${cachePath}/${options.tag}.html`);
+    const pageFilePath = `${cachePath}/${options.tag}.html`;
+    const cachedFile = file(pageFilePath);
+    const fileExists = await cachedFile.exists();
 
-    if (!(await cachedFile.exists())) {
+    if (!fileExists) {
         return await renderPage(Page, cachedFile);
     }
 
+    // TODO stream the file instead of reading it all at once
     let html = await cachedFile.text();
 
     if (options.revalidateMs) {

@@ -1,7 +1,7 @@
 import Elysia from "elysia";
 import { TimeSpan } from "lucia";
 
-import { IS_PRODUCTION, initHtml } from "@/config";
+import { initHtml } from "@/config";
 import { context } from "@/context";
 import { HomePage, type HomePageProps } from "@/lib/pages";
 import { withSSG } from "@/lib/ssg";
@@ -18,7 +18,6 @@ export const pagesRoute = new Elysia({ name: "Pages" })
         const page = await ctx.ssg(HomePage.bind(null, props), {
             tag: "home-page",
             revalidateMs: new TimeSpan(7, "d").milliseconds(),
-            disable: !IS_PRODUCTION,
         });
 
         return page;
