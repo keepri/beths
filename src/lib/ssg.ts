@@ -5,10 +5,15 @@ import { renderToStringAsync } from "solid-js/web";
 
 import { IS_PRODUCTION, buildDir, staticDir } from "@/config";
 
+type Options = {
+    tag: string;
+    revalidateMs?: number;
+    disabled?: boolean;
+};
+
 export async function withSSG(
-    // TODO make Page generic with props, also it should be awaitable
     Page: () => JSX.Element,
-    options: { tag: string; revalidateMs?: number; disabled?: boolean },
+    options: Options,
 ): Promise<string | JSX.Element> {
     options.disabled ??= !IS_PRODUCTION;
 
