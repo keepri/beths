@@ -44,10 +44,7 @@ export async function withSSG(
     return html;
 }
 
-async function renderPage<T extends object>(
-    Page: (props?: T) => JSX.Element,
-    file: BunFile,
-) {
+async function renderPage(Page: () => JSX.Element, file: BunFile) {
     return await renderToStringAsync(Page).then((html) => {
         html = html.replaceAll("&lt;", "<").replaceAll("&gt;", ">");
 
