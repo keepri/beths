@@ -21,12 +21,7 @@ export async function withSSG(
         return Page();
     }
 
-    const cachePath = join(buildDir(), staticDir(), "pages");
-
-    if (!(await file(cachePath).exists())) {
-        spawnSync(["mkdir", "-p", cachePath]);
-    }
-
+    const cachePath = await pagesCachePath();
     const pageFilePath = `${cachePath}/${options.tag}.html`;
     const cachedFile = file(pageFilePath);
     const fileExists = await cachedFile.exists();
@@ -62,4 +57,15 @@ async function renderPage<T extends object>(
 
         return html;
     });
+}
+
+async function pagesCachePath() {
+    const path = join(buildDir(), staticDir(), "pages");
+    const directoryExists = await file(path).exists();
+
+    if (!directoryExists) {
+        spawnSync(["mkdir", "-p", path]);
+    }
+
+    return path;
 }
