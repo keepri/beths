@@ -20,6 +20,7 @@ export function Demo(props: Props, { element }: ComponentOptions) {
     const [msg, setMsg] = createSignal<string>("");
 
     function handleClick() {
+        console.log("Hello, console!");
         setMsg("Hello from Solid!");
     }
 

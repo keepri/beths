@@ -3,8 +3,8 @@ import { TimeSpan } from "lucia";
 
 import { initHtml } from "@/config";
 import { context } from "@/context";
-import { HomePage, type HomePageProps } from "@/lib/pages";
 import { withSSG } from "@/lib/ssg";
+import { HomePage, type HomePageProps } from "@/pages";
 
 export const pagesRoute = new Elysia({ name: "Pages" })
     .decorate("ssg", withSSG)

@@ -10,12 +10,13 @@ type Props = ParentProps<{
 }>;
 
 export function BaseHtml(props: Props) {
-    const safeChildren = props?.children;
+    props.lang ??= "en";
+    props.title ??= APP_NAME;
 
     return (
-        <html lang={props?.lang || "en"}>
+        <html lang={props.lang}>
             <head>
-                <title>{props?.title ?? APP_NAME}</title>
+                <title>{props.title as "safe"}</title>
 
                 <meta charset="UTF-8" />
                 <meta
@@ -29,7 +30,7 @@ export function BaseHtml(props: Props) {
                 <script type="module" src={staticDir("/bundle.min.js")} />
             </head>
 
-            {safeChildren}
+            {props.children as "safe"}
         </html>
     );
 }

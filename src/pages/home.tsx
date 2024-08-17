@@ -1,6 +1,6 @@
 import { type User } from "lucia";
 
-import { BaseHtml } from "../components/base-html";
+import { BaseHtml } from "../components/server/base-html";
 
 export type HomePageProps = {
     user: User | null;

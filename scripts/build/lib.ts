@@ -6,7 +6,7 @@ import { staticDir } from "@/config";
 
 export async function buildJs() {
     await build({
-        entrypoints: ["src/lib/components/web/index.tsx"],
+        entrypoints: ["src/components/client/web/index.tsx"],
         outdir: staticDir(),
         naming: "bundle.min.js",
         minify: true,
