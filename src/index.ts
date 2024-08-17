@@ -36,7 +36,10 @@ export const app = new Elysia(APP_CONFIG)
         if (server === null) {
             return;
         }
+        const appName = app.config.name;
+        const url =
+            server.url.protocol + "//" + server.hostname + ":" + server.port;
         console.log(
-            `🚀 ${app.config.name} is running on ${server.url.protocol}//${server.hostname}:${server.port} in ${env.NODE_ENV} mode.`,
+            `🚀 ${appName} is running on ${url} in ${env.NODE_ENV} mode.`,
         );
     });

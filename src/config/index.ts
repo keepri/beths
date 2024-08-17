@@ -60,5 +60,6 @@ export function origin() {
 }
 
 export function initHtml(options?: HtmlOptions) {
-    return html(Object.assign({ autoDoctype: "full" }, options));
+    const base: HtmlOptions = { autoDoctype: "full" };
+    return html(Object.assign(base, options));
 }

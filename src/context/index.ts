@@ -23,9 +23,17 @@ export const context = new Elysia({ name: "Context" })
         let session = null;
 
         if (ctx.request.method !== "GET" && isCSRF(ctx.request.headers)) {
+            const headersEntries = ctx.request.headers.entries();
+            const headers = Array.from(headersEntries).reduce(
+                function createHeadersObj(acc, [key, value]) {
+                    acc[key] = value;
+                    return acc;
+                },
+                {} as Record<string, string>,
+            );
             ctx.log.warn(
                 {
-                    headers: JSON.stringify(ctx.request.headers.toJSON()),
+                    headers: JSON.stringify(headers),
                     body: JSON.stringify(ctx.body),
                     cookies: JSON.stringify(ctx.request.headers.getSetCookie()),
                     query: JSON.stringify(ctx.query),

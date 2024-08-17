@@ -5,12 +5,7 @@ import { Lucia, TimeSpan, verifyRequestOrigin } from "lucia";
 
 import { IS_PRODUCTION, env } from "@/config";
 import { db } from "@/db";
-import {
-    type DatabaseSession,
-    type DatabaseUser,
-    sessionTable,
-    userTable,
-} from "@/db/schema";
+import { sessionTable, userTable } from "@/db/schema";
 
 export const github = new GitHub(
     env.GITHUB_CLIENT_ID,
@@ -48,16 +43,7 @@ export const auth = new Lucia(adapter, {
     },
 });
 
-declare module "lucia" {
-    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
-    interface Register {
-        Lucia: typeof auth;
-        DatabaseSessionAttributes: DatabaseSession;
-        DatabaseUserAttributes: DatabaseUser;
-    }
-}
-
-export function isCSRF(headers: Headers) {
+export function isCSRF(headers: Request["headers"]) {
     const originHeader = headers.get("Origin");
     let hostHeader = headers.get("Host");
 

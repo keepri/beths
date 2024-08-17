@@ -1,6 +1,9 @@
 import "solid-js/types/jsx";
 import { type ParentProps } from "solid-js/types/render/component";
 
+import { type auth } from "@/auth";
+import { type DatabaseSession, type DatabaseUser } from "@/db/schema";
+
 declare module "solid-js/types/jsx" {
     namespace JSX {
         type DefaultAttributes = HTMLAttributes<HTMLElement>;
@@ -20,5 +23,14 @@ declare module "solid-js/types/jsx" {
         interface HTMLAttributes {
             safe?: boolean;
         }
+    }
+}
+
+declare module "lucia" {
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+    interface Register {
+        Lucia: typeof auth;
+        DatabaseSessionAttributes: DatabaseSession;
+        DatabaseUserAttributes: DatabaseUser;
     }
 }
