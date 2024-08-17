@@ -4,7 +4,7 @@ import { IS_PRODUCTION, buildDir, staticDir } from "@/config";
 
 import { buildJs, extractDependencies } from "./lib";
 
-const DOT_ENV = file(".env.local");
+const DOT_ENV = file(".env");
 const PACKAGE_JSON = file("package.json");
 const DEPS = await extractDependencies(PACKAGE_JSON);
 const MV_CMD = IS_PRODUCTION ? "mv" : "cp";
