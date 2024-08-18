@@ -1,15 +1,15 @@
 import { type InferInsertModel, type InferSelectModel } from "drizzle-orm";
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
-import { userTable } from "./user";
+import { usersTable } from "./user";
 
-export const sessionTable = sqliteTable("session", {
+export const sessionsTable = sqliteTable("sessions", {
     id: text("id").notNull().primaryKey(),
     userId: text("user_id")
         .notNull()
-        .references(() => userTable.id),
+        .references(() => usersTable.id),
     expiresAt: integer("expires_at").notNull(),
 });
 
-export type DatabaseSession = InferSelectModel<typeof sessionTable>;
-export type Session = InferInsertModel<typeof sessionTable>;
+export type DatabaseSession = InferSelectModel<typeof sessionsTable>;
+export type Session = InferInsertModel<typeof sessionsTable>;

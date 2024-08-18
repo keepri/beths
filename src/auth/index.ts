@@ -5,7 +5,7 @@ import { Lucia, TimeSpan, verifyRequestOrigin } from "lucia";
 
 import { IS_PRODUCTION, env } from "@/config";
 import { db } from "@/db";
-import { sessionTable, userTable } from "@/db/schema";
+import { sessionsTable, usersTable } from "@/db/schema";
 
 export const github = new GitHub(
     env.GITHUB_CLIENT_ID,
@@ -14,7 +14,7 @@ export const github = new GitHub(
 
 export const SESSION_LENGTH: TimeSpan = new TimeSpan(1, "d");
 
-const adapter = new DrizzleSQLiteAdapter(db, sessionTable, userTable);
+const adapter = new DrizzleSQLiteAdapter(db, sessionsTable, usersTable);
 
 export const auth = new Lucia(adapter, {
     sessionExpiresIn: SESSION_LENGTH,

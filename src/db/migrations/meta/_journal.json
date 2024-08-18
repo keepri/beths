@@ -1,1 +1,13 @@
-{"version":"5","dialect":"sqlite","entries":[]}
+{
+  "version": "5",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1723972548089,
+      "tag": "20240818091548_white_centennial",
+      "breakpoints": true
+    }
+  ]
+}

@@ -1,5 +1,7 @@
 import { type User } from "lucia";
 
+import { createAPIPath } from "@/routes/utils";
+
 import { BaseHtml } from "../components/server/base-html";
 
 export type HomePageProps = {
@@ -19,19 +21,17 @@ export function HomePage(props: HomePageProps) {
                     <h1 class="text-blue-300">Hello from child node.</h1>
                 </x-demo>
 
-                {props.user && (
-                    <p safe class="text-purple-300">
-                        Welcome, {props.user.username}.
-                    </p>
-                )}
-
-                {!props.user && (
+                {!props.user ? (
                     <a
-                        href="/api/v1/login/github"
+                        href={createAPIPath("/login/github")}
                         class="text-teal-300 underline"
                     >
                         Sign in with GitHub
                     </a>
+                ) : (
+                    <p safe class="text-purple-300">
+                        Welcome, {props.user.username}.
+                    </p>
                 )}
             </body>
         </BaseHtml>

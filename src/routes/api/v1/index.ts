@@ -1,8 +1,13 @@
 import { Elysia } from "elysia";
 
+import { V1_PREFIX } from "@/routes/constants";
+
 import { loginRoute } from "./login";
 
-export const v1Route = new Elysia({ name: "API v1", prefix: "/v1" })
+const PREFIX = "/" + V1_PREFIX;
+const NAME = "API v1";
+
+export const v1Route = new Elysia({ name: NAME, prefix: PREFIX })
     .use(loginRoute)
     .get("/healthz", function handleHealthz() {
         return new Response("Coolcoolcool!");

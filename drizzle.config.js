@@ -8,6 +8,9 @@ export default {
     dialect: "sqlite",
     schema: "./src/db/schema/index.ts",
     out: "src/db/migrations",
+    migrations: {
+        prefix: "timestamp",
+    },
     dbCredentials: {
         url: env.DATABASE_URL,
         authToken: env.DATABASE_AUTH_TOKEN,

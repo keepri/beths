@@ -7,14 +7,17 @@ import { SESSION_LENGTH, auth, github } from "@/auth";
 import { IS_PRODUCTION, env } from "@/config";
 import { context } from "@/context";
 import { db } from "@/db";
-import { userTable } from "@/db/schema";
+import { usersTable } from "@/db/schema";
 
 type GitHubUserResult = {
     id: number;
     login: string;
 };
 
-export const githubRoute = new Elysia({ name: "GitHub", prefix: "/github" })
+const NAME = "GitHub";
+const PREFIX = "/github";
+
+export const githubRoute = new Elysia({ name: NAME, prefix: PREFIX })
     .use(context)
     .get("/", async function handleGitHub(ctx): Promise<Response> {
         const state = generateState();
@@ -24,7 +27,7 @@ export const githubRoute = new Elysia({ name: "GitHub", prefix: "/github" })
             value: state,
             httpOnly: true,
             secure: IS_PRODUCTION,
-            maxAge: new TimeSpan(5, "m").seconds(),
+            maxAge: new TimeSpan(1, "m").seconds(),
             domain: env.HOST,
             path: "/",
         });
@@ -35,7 +38,7 @@ export const githubRoute = new Elysia({ name: "GitHub", prefix: "/github" })
         });
     })
     .get("/callback", async function handleGitHubOAuth(ctx) {
-        const stateCookie = ctx.cookie["github_oauth_state"].get();
+        const stateCookie = ctx.cookie["github_oauth_state"].value;
         const state = ctx.query.state;
         const code = ctx.query.code;
 
@@ -55,16 +58,17 @@ export const githubRoute = new Elysia({ name: "GitHub", prefix: "/github" })
                 "https://api.github.com/user",
                 { headers: { Authorization: `Bearer ${tokens.accessToken}` } },
             );
-            const githubUserResult: GitHubUserResult =
-                await githubUserResponse.json();
+            const githubUserResult =
+                (await githubUserResponse.json()) as GitHubUserResult;
 
-            const existingUser = await db.query.userTable.findFirst({
-                where: eq(userTable.githubId, githubUserResult.id),
+            const existingUser = await db.query.usersTable.findFirst({
+                where: eq(usersTable.githubId, githubUserResult.id),
             });
 
             const expiresAt = Date.now() + SESSION_LENGTH.milliseconds();
 
             if (existingUser) {
+                // TODO FIXME we should check if the user already has a session
                 const session = await auth.createSession(existingUser.id, {
                     id: generateId(36),
                     userId: existingUser.id,
@@ -84,13 +88,15 @@ export const githubRoute = new Elysia({ name: "GitHub", prefix: "/github" })
 
                 return new Response(null, {
                     status: 302,
+                    // TODO implement referrer
                     headers: { Location: "/" },
                 });
             }
 
+            // TODO Decide id column
             const userId = generateId(36);
             await db
-                .insert(userTable)
+                .insert(usersTable)
                 .values({
                     id: userId,
                     githubId: githubUserResult.id,
@@ -99,6 +105,7 @@ export const githubRoute = new Elysia({ name: "GitHub", prefix: "/github" })
                 .execute();
 
             const session = await auth.createSession(userId, {
+                // TODO Decide id column
                 id: generateId(36),
                 userId,
                 expiresAt,
@@ -117,6 +124,7 @@ export const githubRoute = new Elysia({ name: "GitHub", prefix: "/github" })
 
             return new Response(null, {
                 status: 302,
+                // TODO implement referrer
                 headers: { Location: "/" },
             });
         } catch (error) {

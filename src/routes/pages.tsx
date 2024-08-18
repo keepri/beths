@@ -6,7 +6,9 @@ import { context } from "@/context";
 import { withSSG } from "@/lib/ssg";
 import { HomePage, type HomePageProps } from "@/pages";
 
-export const pagesRoute = new Elysia({ name: "Pages" })
+const NAME = "Pages";
+
+export const pagesRoute = new Elysia({ name: NAME })
     .decorate("ssg", withSSG)
     .use(initHtml())
     .use(context)
