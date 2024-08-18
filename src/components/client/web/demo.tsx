@@ -1,7 +1,6 @@
-import { type ComponentOptions } from "component-register";
 import { noShadowDOM } from "solid-element";
 import { customElement } from "solid-element";
-import { createSignal } from "solid-js";
+import { Show, createSignal } from "solid-js";
 import { isServer } from "solid-js/web";
 
 import { Button } from "../button";
@@ -10,33 +9,40 @@ type Props = {
     foo: string;
 };
 
+const NAME = "x-demo";
 const INIT_PROPS: Props = { foo: "" } as const;
 
-export function Demo(props: Props, { element }: ComponentOptions) {
-    noShadowDOM();
-
-    const safeFoo = props.foo;
-
-    const [msg, setMsg] = createSignal<string>("");
-
-    function handleClick() {
-        console.log("Hello, console!");
-        setMsg("Hello from Solid!");
-    }
-
-    return (
-        <>
-            {element.children[0] as "safe"}
-
-            <h1 class="text-red-400">{msg() as "safe"}</h1>
-
-            <Button onClick={handleClick}>say hi</Button>
-
-            <p class="text-green-300">{safeFoo}</p>
-        </>
-    );
-}
-
 if (!isServer) {
-    customElement<Props>("x-demo", INIT_PROPS, Demo);
+    customElement<Props>(
+        NAME,
+        INIT_PROPS,
+        function Demo(props, { element: { children } }) {
+            noShadowDOM();
+
+            const [msg, setMsg] = createSignal<string>("");
+
+            function handleClick() {
+                console.log("Hello, console!");
+                setMsg("Hello from Solid!");
+            }
+
+            return (
+                <>
+                    {children[0] as "safe"}
+
+                    <Show when={Boolean(msg())}>
+                        <h1 safe class="text-red-400">
+                            {msg()}
+                        </h1>
+                    </Show>
+
+                    <Button onClick={handleClick}>say hi</Button>
+
+                    <p safe class="text-green-300">
+                        {props.foo}
+                    </p>
+                </>
+            );
+        },
+    );
 }
