@@ -1,4 +1,4 @@
-import { type InferInsertModel, type InferSelectModel } from "drizzle-orm";
+import { type InferSelectModel } from "drizzle-orm";
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
 export const usersTable = sqliteTable("users", {
@@ -7,5 +7,4 @@ export const usersTable = sqliteTable("users", {
     username: text("username").notNull(),
 });
 
-export type DatabaseUser = InferSelectModel<typeof usersTable>;
-export type User = InferInsertModel<typeof usersTable>;
+export type DbUser = InferSelectModel<typeof usersTable>;
