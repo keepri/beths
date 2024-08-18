@@ -12,15 +12,13 @@ export const pagesRoute = new Elysia({ name: NAME })
     .decorate("ssg", withSSG)
     .use(initHtml())
     .use(context)
-    .get("/", async function homePage(ctx) {
+    .get("/", function homePage(ctx) {
         const props: HomePageProps = {
             user: ctx.user,
         };
 
-        const page = await ctx.ssg(HomePage.bind(null, props), {
+        return ctx.ssg(HomePage.bind(null, props), {
             tag: "home-page",
             revalidateMs: new TimeSpan(7, "d").milliseconds(),
         });
-
-        return page;
     });

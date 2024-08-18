@@ -1,7 +1,7 @@
 import { type BunFile, file, spawnSync } from "bun";
 import { join } from "path";
 import { type JSX } from "solid-js";
-import { renderToStringAsync } from "solid-js/web";
+import { renderToString } from "solid-js/web";
 
 import { IS_PRODUCTION, buildDir, staticDir } from "@/config";
 
@@ -18,42 +18,40 @@ export async function withSSG(
     options.disabled ??= !IS_PRODUCTION;
 
     if (options.disabled) {
-        return Page();
+        return render(Page);
     }
 
     const cachePath = await pagesCachePath();
     const pageFilePath = `${cachePath}/${options.tag}.html`;
-    const cachedFile = file(pageFilePath);
-    const fileExists = await cachedFile.exists();
+    const cacheFile = file(pageFilePath);
 
-    if (!fileExists) {
-        return await renderPage(Page, cachedFile);
-    }
-
-    // TODO stream the file instead of reading it all at once
-    let html = await cachedFile.text();
-
-    if (options.revalidateMs) {
-        const diff = Date.now() - cachedFile.lastModified;
-
+    if (typeof options.revalidateMs === "number") {
+        const diff = Date.now() - cacheFile.lastModified;
         if (diff > options.revalidateMs) {
-            html = await renderPage(Page, cachedFile);
+            return render(Page, cacheFile);
         }
     }
 
-    return html;
+    const fileExists = await cacheFile.exists();
+    if (fileExists) {
+        return cacheFile.text();
+    }
+
+    return render(Page, cacheFile);
 }
 
-async function renderPage(Page: () => JSX.Element, file: BunFile) {
-    return await renderToStringAsync(Page).then((html) => {
-        html = html.replaceAll("&lt;", "<").replaceAll("&gt;", ">");
+function render(Page: () => JSX.Element, file?: BunFile) {
+    const html = renderToString(Page)
+        .replaceAll("&lt;", "<")
+        .replaceAll("&gt;", ">");
 
+    if (file) {
         const writer = file.writer();
         writer.write(html);
         writer.end();
+    }
 
-        return html;
-    });
+    return html;
 }
 
 async function pagesCachePath() {

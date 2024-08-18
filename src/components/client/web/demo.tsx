@@ -1,6 +1,6 @@
 import { noShadowDOM } from "solid-element";
 import { customElement } from "solid-element";
-import { Show, createSignal } from "solid-js";
+import { Show, Suspense, createResource, createSignal } from "solid-js";
 import { isServer } from "solid-js/web";
 
 import { Button } from "../button";
@@ -19,6 +19,14 @@ if (!isServer) {
         function Demo(props, { element: { children } }) {
             noShadowDOM();
 
+            const [resource] = createResource(async () => {
+                return new Promise((resolve) => {
+                    setTimeout(() => {
+                        resolve("DARY!");
+                    }, 1000);
+                });
+            });
+
             const [msg, setMsg] = createSignal<string>("");
 
             function handleClick() {
@@ -29,6 +37,12 @@ if (!isServer) {
             return (
                 <>
                     {children[0] as "safe"}
+
+                    <Suspense
+                        fallback={<h1 class="text-white">Wait for it...</h1>}
+                    >
+                        <h1 class="text-white">{resource()}</h1>
+                    </Suspense>
 
                     <Show when={Boolean(msg())}>
                         <h1 safe class="text-red-400">
