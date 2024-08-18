@@ -14,6 +14,5 @@ const watcher = watch(
     },
 );
 
-watcher.on("start", buildJs);
-watcher.emit("start");
+watcher.on("start", buildJs).emit("start");
 watcher.off("start", buildJs);
