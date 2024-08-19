@@ -1,8 +1,7 @@
 import { Elysia } from "elysia";
 
-import { DB_SYNC_CRON, dbSyncCron } from "./jobs/db-sync";
-import { register } from "./utils";
+import { dbSync } from "./jobs/db-sync";
 
-const dbSync = register(DB_SYNC_CRON, dbSyncCron);
+const NAME = "CronJobs";
 
-export const cronJobs = new Elysia({ name: "CronJobs" }).use(dbSync);
+export const cronJobs = new Elysia({ name: NAME }).use(dbSync);

@@ -1,11 +1,11 @@
 import { env } from "@/config";
 import { client } from "@/db";
 
-import { makeCronJob } from "../utils";
+import { createCronJob } from "../utils";
 
-export const DB_SYNC_CRON = "db_sync" as const;
+const DB_SYNC_CRON = "db_sync";
 
-export const dbSyncCron = makeCronJob({ name: DB_SYNC_CRON }, dbSyncCallback);
+export const dbSync = createCronJob(dbSyncCallback, { name: DB_SYNC_CRON });
 
 function dbSyncCallback() {
     if (!env.DATABASE_SYNC_URL) {

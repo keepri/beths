@@ -1,19 +1,14 @@
 import { type CronConfig, cron } from "@elysiajs/cron";
-import { type Elysia } from "elysia";
 
 import { EVERY_TWO_MINUTES_PATTERN } from "./patterns";
 
-export function register(name: string, cron: (app: Elysia) => Elysia) {
-    return function callback(app: Elysia) {
-        console.log(`Cron job ${name} registered.`);
-        return cron(app);
-    };
-}
-
-type Config = Omit<CronConfig, "run" | "pattern"> &
+type CreateCronConfig = Omit<CronConfig, "run" | "pattern"> &
     Partial<Pick<CronConfig, "pattern">>;
 
-export function makeCronJob(config: Config, callback: CronConfig["run"]) {
+export function createCronJob(
+    callback: CronConfig["run"],
+    config: CreateCronConfig,
+) {
     let fails = 0;
     const pattern = config.pattern ?? EVERY_TWO_MINUTES_PATTERN;
 
@@ -21,14 +16,16 @@ export function makeCronJob(config: Config, callback: CronConfig["run"]) {
         Object.assign(config, {
             pattern,
             run(cron) {
+                const now = new Date().toISOString();
                 const start = performance.now();
                 callback(cron)?.then(success)?.catch(fail);
 
                 function success() {
+                    console.log(`Cron job ${config.name} completed on ${now}.`);
                     const diffMs = +(performance.now() - start).toPrecision(2);
                     if (diffMs > 250) {
                         console.warn(
-                            `Cron job ${config.name} completed in ${diffMs}ms.`,
+                            `Cron job ${config.name} completed on ${now} took ${diffMs}ms.`,
                         );
                     }
                 }
@@ -43,7 +40,7 @@ export function makeCronJob(config: Config, callback: CronConfig["run"]) {
                     }
 
                     console.error(
-                        `Cron job ${config.name} failed. ${error.message}`,
+                        `Cron job ${config.name} failed on ${now}. ${error.message}`,
                     );
                 }
             },

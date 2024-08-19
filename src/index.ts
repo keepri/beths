@@ -5,7 +5,7 @@ import { APP_NAME, IS_PRODUCTION, env, initCors, staticDir } from "@/config";
 import { cronJobs } from "@/cron";
 import { apiRoute, pagesRoute } from "@/routes";
 
-const APP_CONFIG = Object.freeze({
+const APP_CONFIG = {
     name: APP_NAME,
     serve: {
         hostname: env.HOST,
@@ -13,7 +13,7 @@ const APP_CONFIG = Object.freeze({
         development: !IS_PRODUCTION,
         maxRequestBodySize: 1024 * 1024 * 4, // 4mb
     },
-} satisfies ElysiaConfig);
+} as const satisfies ElysiaConfig<undefined, undefined>;
 
 export const app = new Elysia(APP_CONFIG)
     .use(initCors())

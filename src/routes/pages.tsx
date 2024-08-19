@@ -12,9 +12,11 @@ export const pagesRoute = new Elysia({ name: NAME })
     .decorate("ssg", withSSG)
     .use(initHtml())
     .use(context)
-    .get("/", function homePage(ctx) {
+    .get("/", async function homePage(ctx) {
+        const auth = await ctx.auth(ctx);
+
         const props: HomePageProps = {
-            user: ctx.user,
+            user: auth.user,
         };
 
         return ctx.ssg(HomePage.bind(null, props), {

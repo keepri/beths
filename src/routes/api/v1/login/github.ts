@@ -20,6 +20,16 @@ const PREFIX = "/github";
 export const githubRoute = new Elysia({ name: NAME, prefix: PREFIX })
     .use(context)
     .get("/", async function handleGitHub(ctx): Promise<Response> {
+        const auth = await ctx.auth(ctx);
+
+        if (auth.user) {
+            // TODO implement referrer
+            return new Response(null, {
+                status: 302,
+                headers: { Location: "/" },
+            });
+        }
+
         const state = generateState();
         const url = await github.createAuthorizationURL(state);
 
