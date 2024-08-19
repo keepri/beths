@@ -56,10 +56,12 @@ export function initCors() {
 export function origin() {
     const protocol = IS_PRODUCTION ? "https://" : "http://";
     const port = IS_PRODUCTION ? "" : `:${env.PORT}`;
+
     return protocol + env.HOST + port;
 }
 
 export function initHtml(options?: HtmlOptions) {
-    const base: HtmlOptions = { autoDoctype: "full" };
+    const base = { autoDoctype: "full" } satisfies HtmlOptions;
+
     return html(Object.assign(base, options));
 }
