@@ -6,37 +6,32 @@ import { type Cookie, type Session, type User } from "lucia";
 import pretty from "pino-pretty";
 
 import { auth, isCSRF } from "@/auth";
-import { type Env, env } from "@/config";
+import { env } from "@/config";
 import { db } from "@/db";
 
 const NAME = "Context";
-const CONTEXT = {
-    db,
-    auth: createAuthInfo,
-    config: {
-        env,
-    },
-} as const;
-const LOGGER = logger(env.LOG_LEVEL);
-const BEARER = bearer();
+
+const logger = elysiaLogger({
+    level: env.LOG_LEVEL,
+    stream: pretty({
+        colorize: true,
+        colorizeObjects: true,
+        translateTime: "SYS:standard",
+        levelFirst: true,
+        singleLine: true,
+    }),
+});
 
 export const context = new Elysia({ name: NAME })
-    .decorate(CONTEXT)
-    .use(LOGGER)
-    .use(BEARER);
-
-function logger(level: Env["LOG_LEVEL"]) {
-    return elysiaLogger({
-        level,
-        stream: pretty({
-            colorize: true,
-            colorizeObjects: true,
-            translateTime: "SYS:standard",
-            levelFirst: true,
-            singleLine: true,
-        }),
-    });
-}
+    .decorate({
+        db,
+        auth: createAuthInfo,
+        config: {
+            env,
+        },
+    } as const)
+    .use(logger)
+    .use(bearer());
 
 type AuthInfoContext = {
     request: Request;

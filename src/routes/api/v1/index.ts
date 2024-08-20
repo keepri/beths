@@ -10,5 +10,5 @@ const NAME = "API v1";
 export const v1Route = new Elysia({ name: NAME, prefix: PREFIX })
     .use(loginRoute)
     .get("/healthz", function handleHealthz() {
-        return new Response("Coolcoolcool!");
+        return "Coolcoolcool!";
     });
