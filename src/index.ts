@@ -5,7 +5,7 @@ import { APP_NAME, IS_PRODUCTION, env, initCors, staticDir } from "@/config";
 import { cronJobs } from "@/cron";
 import { apiRoute, pagesRoute } from "@/routes";
 
-import { interceptors } from "./config/interceptors";
+import { errorHandler } from "./middleware/error";
 
 const elysiaCors = initCors();
 const elysiaStatic = staticPlugin({
@@ -24,9 +24,21 @@ const APP_CONFIG = {
 } as const satisfies ElysiaConfig<undefined, undefined>;
 
 export const app = new Elysia(APP_CONFIG)
-    .use(interceptors)
     .use(elysiaCors)
     .use(elysiaStatic)
+    .use(errorHandler)
     .use(cronJobs)
     .use(apiRoute)
-    .use(pagesRoute);
+    .use(pagesRoute)
+    .onStart(function handleStart(app) {
+        const server = app.server;
+        if (server === null) {
+            return;
+        }
+        const appName = app.config.name;
+        const url =
+            server.url.protocol + "//" + server.hostname + ":" + server.port;
+        console.log(
+            `🚀 ${appName} is running on ${url} in ${env.NODE_ENV} mode.`,
+        );
+    });
