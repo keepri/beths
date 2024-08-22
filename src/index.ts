@@ -5,7 +5,7 @@ import { APP_NAME, IS_PRODUCTION, env, initCors, staticDir } from "@/config";
 import { cronJobs } from "@/cron";
 import { apiRoute, pagesRoute } from "@/routes";
 
-import { interceptors } from "./interceptors";
+import { interceptors } from "./config/interceptors";
 
 const elysiaCors = initCors();
 const elysiaStatic = staticPlugin({
