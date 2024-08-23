@@ -1,12 +1,14 @@
+import { bearer } from "@elysiajs/bearer";
 import { staticPlugin } from "@elysiajs/static";
 import { Elysia, type ElysiaConfig } from "elysia";
 
 import { APP_NAME, IS_PRODUCTION, env, initCors, staticDir } from "@/config";
+import { context } from "@/context";
 import { cronJobs } from "@/cron";
+import { errorHandler } from "@/middleware/error";
 import { apiRoute, pagesRoute } from "@/routes";
 
-import { errorHandler } from "./middleware/error";
-
+const elysiaBearer = bearer();
 const elysiaCors = initCors();
 const elysiaStatic = staticPlugin({
     prefix: staticDir(),
@@ -24,8 +26,10 @@ const APP_CONFIG = {
 } as const satisfies ElysiaConfig<undefined, undefined>;
 
 export const app = new Elysia(APP_CONFIG)
+    .use(elysiaBearer)
     .use(elysiaCors)
     .use(elysiaStatic)
+    .use(context)
     .use(errorHandler)
     .use(cronJobs)
     .use(apiRoute)
@@ -42,3 +46,5 @@ export const app = new Elysia(APP_CONFIG)
             `🚀 ${appName} is running on ${url} in ${env.NODE_ENV} mode.`,
         );
     });
+
+export type App = typeof app;

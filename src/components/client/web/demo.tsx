@@ -3,7 +3,7 @@ import { customElement } from "solid-element";
 import { Show, Suspense, createResource, createSignal } from "solid-js";
 import { isServer } from "solid-js/web";
 
-import { Button } from "../button";
+import { Button } from "@/components/client/button";
 
 type Props = {
     foo: string;

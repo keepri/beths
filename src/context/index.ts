@@ -1,6 +1,5 @@
 import { logger as elysiaLogger } from "@bogeychan/elysia-logger";
 import { type Logger } from "@bogeychan/elysia-logger/src/types";
-import bearer from "@elysiajs/bearer";
 import { Elysia, type Cookie as ElysiaCookie } from "elysia";
 import { type Cookie, type Session, type User } from "lucia";
 import pretty from "pino-pretty";
@@ -30,8 +29,7 @@ export const context = new Elysia({ name: NAME })
             env,
         },
     } as const)
-    .use(logger)
-    .use(bearer());
+    .use(logger);
 
 type AuthInfoContext = {
     request: Request;
