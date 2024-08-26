@@ -16,7 +16,7 @@ if (!isServer) {
     customElement<Props>(
         NAME,
         INIT_PROPS,
-        function Demo(props, { element: { children } }) {
+        function Demo(props: Props, { element: { children } }) {
             noShadowDOM();
 
             const [resource] = createResource(async () => {
