@@ -1,3 +1,3 @@
-import { app } from "./src";
+import { startServer } from "./src";
 
-app.listen({});
+startServer();

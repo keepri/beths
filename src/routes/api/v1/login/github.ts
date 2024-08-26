@@ -17,7 +17,7 @@ type GitHubUserResult = {
 const NAME = "GitHub";
 const PREFIX = "/github";
 
-export const githubRoute = new Elysia({ name: NAME, prefix: PREFIX })
+export const githubRoutes = new Elysia({ name: NAME, prefix: PREFIX })
     .get("/", async function handleGitHub(ctx: InferContext<App>) {
         const auth = await ctx.auth(ctx);
 

@@ -6,7 +6,7 @@ import { APP_NAME, IS_PRODUCTION, env, initCors, staticDir } from "@/config";
 import { context } from "@/context";
 import { cronJobs } from "@/cron";
 import { errorHandler } from "@/middleware/error";
-import { apiRoute, pagesRoute } from "@/routes";
+import { apiRoutes, pagesRoutes } from "@/routes";
 
 const elysiaBearer = bearer();
 const elysiaCors = initCors();
@@ -25,15 +25,15 @@ const APP_CONFIG = {
     },
 } as const satisfies ElysiaConfig<undefined, undefined>;
 
-export const app = new Elysia(APP_CONFIG)
+const app = new Elysia(APP_CONFIG)
     .use(elysiaBearer)
     .use(elysiaCors)
     .use(elysiaStatic)
     .use(context)
     .use(errorHandler)
     .use(cronJobs)
-    .use(apiRoute)
-    .use(pagesRoute)
+    .use(apiRoutes)
+    .use(pagesRoutes)
     .onStart(function handleStart(app) {
         const server = app.server;
         if (server === null) {
@@ -48,3 +48,7 @@ export const app = new Elysia(APP_CONFIG)
     });
 
 export type App = typeof app;
+
+export function startServer() {
+    app.listen({});
+}

@@ -8,7 +8,7 @@ import { HomePage, type HomePageProps } from "@/pages";
 
 const NAME = "Pages";
 
-export const pagesRoute = new Elysia({ name: NAME })
+export const pagesRoutes = new Elysia({ name: NAME })
     .decorate("ssg", withSSG)
     .use(initHtml())
     .get("/", async function homePage(ctx: InferContext<App>) {
