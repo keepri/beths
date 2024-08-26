@@ -1,4 +1,4 @@
-import { env } from "@/config";
+import { env } from "@/config/env";
 import { client } from "@/db";
 
 import { createCronJob } from "../utils";

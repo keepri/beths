@@ -2,12 +2,18 @@ import { bearer } from "@elysiajs/bearer";
 import { staticPlugin } from "@elysiajs/static";
 import { Elysia, type ElysiaConfig } from "elysia";
 
-import { APP_NAME, IS_PRODUCTION, env, initCors, staticDir } from "@/config";
+import { APP_NAME, staticDir } from "@/config";
+import { initCors } from "@/config/cors";
+import { IS_PRODUCTION, env } from "@/config/env";
+import { initHtml } from "@/config/html";
+import { initLogger } from "@/config/logger";
 import { context } from "@/context";
 import { cronJobs } from "@/cron";
 import { errorHandler } from "@/middleware/error";
 import { apiRoutes, pagesRoutes } from "@/routes";
 
+const elysiaLogger = initLogger();
+const elysiaHtml = initHtml();
 const elysiaBearer = bearer();
 const elysiaCors = initCors();
 const elysiaStatic = staticPlugin({
@@ -26,9 +32,12 @@ const APP_CONFIG = {
 } as const satisfies ElysiaConfig<undefined, undefined>;
 
 const app = new Elysia(APP_CONFIG)
+    .use(elysiaLogger)
+    .use(elysiaHtml)
     .use(elysiaBearer)
     .use(elysiaCors)
     .use(elysiaStatic)
+    .use(elysiaHtml)
     .use(context)
     .use(errorHandler)
     .use(cronJobs)

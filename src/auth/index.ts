@@ -3,7 +3,7 @@ import { DrizzleSQLiteAdapter } from "@lucia-auth/adapter-drizzle";
 import { GitHub } from "arctic";
 import { Lucia, TimeSpan, verifyRequestOrigin } from "lucia";
 
-import { IS_PRODUCTION, env } from "@/config";
+import { IS_PRODUCTION, env } from "@/config/env";
 import { db } from "@/db";
 import { sessionsTable, usersTable } from "@/db/schema";
 

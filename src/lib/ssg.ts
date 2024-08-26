@@ -3,7 +3,8 @@ import { join } from "path";
 import { type JSX } from "solid-js";
 import { renderToString } from "solid-js/web";
 
-import { IS_PRODUCTION, buildDir, staticDir } from "@/config";
+import { buildDir, staticDir } from "@/config";
+import { IS_PRODUCTION } from "@/config/env";
 
 type Options = {
     tag: string;

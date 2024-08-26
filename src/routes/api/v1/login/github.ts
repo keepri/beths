@@ -4,7 +4,7 @@ import { Elysia, type InferContext, t } from "elysia";
 import { TimeSpan, generateId } from "lucia";
 
 import { SESSION_LENGTH, auth, github } from "@/auth";
-import { IS_PRODUCTION, env } from "@/config";
+import { IS_PRODUCTION, env } from "@/config/env";
 import { db } from "@/db";
 import { usersTable } from "@/db/schema";
 import { type App } from "@/index";

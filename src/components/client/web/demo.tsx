@@ -1,4 +1,3 @@
-import { noShadowDOM } from "solid-element";
 import { customElement } from "solid-element";
 import { Show, Suspense, createResource, createSignal } from "solid-js";
 import { isServer } from "solid-js/web";
@@ -17,8 +16,6 @@ if (!isServer) {
         NAME,
         INIT_PROPS,
         function Demo(props: Props, { element: { children } }) {
-            noShadowDOM();
-
             const [resource] = createResource(async () => {
                 return new Promise((resolve) => {
                     setTimeout(() => {

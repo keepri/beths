@@ -1,6 +1,7 @@
 import { build, file, spawn, spawnSync, write } from "bun";
 
-import { IS_PRODUCTION, buildDir, staticDir } from "@/config";
+import { buildDir, staticDir } from "@/config";
+import { IS_PRODUCTION } from "@/config/env";
 
 import { buildJs, extractDependencies } from "./lib";
 
