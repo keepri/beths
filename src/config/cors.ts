@@ -1,9 +1,9 @@
-import { cors } from "@elysiajs/cors";
+import { cors as elysiaCors } from "@elysiajs/cors";
 
 import { IS_PRODUCTION, env } from "@/config/env";
 
-export function initCors() {
-    return cors({
+export function cors() {
+    return elysiaCors({
         allowedHeaders: "*",
         origin: [origin(), "https://github.com"],
         credentials: true,

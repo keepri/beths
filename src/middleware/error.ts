@@ -28,9 +28,10 @@ export const errorHandler = new Elysia({ name: NAME })
                 return "Unprocessable Content";
             }
 
-            default:
+            default: {
                 ctx.set.status = "Internal Server Error";
 
                 return "Something went wrong.";
+            }
         }
     });
