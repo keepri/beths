@@ -5,6 +5,8 @@ import { type App } from "@/index";
 import { HomePage, type HomePageProps } from "@/pages";
 
 const NAME = "Pages";
+const HOME_PAGE_TAG = "home-page";
+const REVALIDATE_HOME_PAGE_MS = new TimeSpan(7, "d").milliseconds();
 
 export const pagesRoutes = new Elysia({ name: NAME }).get(
     "/",
@@ -16,8 +18,8 @@ export const pagesRoutes = new Elysia({ name: NAME }).get(
         };
 
         return ctx.ssg(HomePage.bind(null, props), {
-            tag: "home-page",
-            revalidateMs: new TimeSpan(7, "d").milliseconds(),
+            tag: HOME_PAGE_TAG,
+            revalidateMs: REVALIDATE_HOME_PAGE_MS,
         });
     },
 );

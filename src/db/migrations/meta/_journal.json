@@ -1,12 +1,12 @@
 {
-  "version": "5",
+  "version": "7",
   "dialect": "sqlite",
   "entries": [
     {
       "idx": 0,
       "version": "6",
-      "when": 1723972548089,
-      "tag": "20240818091548_white_centennial",
+      "when": 1724965090254,
+      "tag": "20240829205810_living_silver_sable",
       "breakpoints": true
     }
   ]

@@ -1,7 +1,7 @@
-import { Elysia } from "elysia";
+import { type Elysia } from "elysia";
 
 import { dbSync } from "./jobs/db-sync";
 
-const NAME = "CronJobs";
-
-export const cronJobs = new Elysia({ name: NAME }).use(dbSync);
+export function cronJobs(app: Elysia) {
+    return app.use(dbSync);
+}

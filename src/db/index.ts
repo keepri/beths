@@ -12,6 +12,7 @@ export const client = createClient({
 });
 
 if (env.DATABASE_SYNC_URL) {
+    console.log("Syncing local database replica...");
     await client.sync();
 }
 

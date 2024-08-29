@@ -20,8 +20,8 @@ const APP_CONFIG = {
 const app = new Elysia(APP_CONFIG)
     .use(config)
     .use(context)
-    .use(errorHandler)
     .use(cronJobs)
+    .use(errorHandler)
     .use(apiRoutes)
     .use(pagesRoutes)
     .onStart(handleStart);

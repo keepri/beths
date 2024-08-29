@@ -1,7 +1,7 @@
 import { type ParentProps } from "solid-js";
 
 import { APP_NAME, staticDir } from "@/config";
-import { type AppLanguage, DEFAULT_LANG } from "@/config/env";
+import { type AppLanguage, env } from "@/config/env";
 
 type Props = ParentProps<{
     title?: string;
@@ -9,7 +9,7 @@ type Props = ParentProps<{
 }>;
 
 export function BaseHtml(props: Props) {
-    props.lang ??= DEFAULT_LANG;
+    props.lang ??= env.LANG;
     props.title ??= APP_NAME;
 
     return (
