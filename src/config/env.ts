@@ -1,10 +1,20 @@
 import { createEnv } from "@t3-oss/env-core";
+import { type Level } from "pino";
 import { z } from "zod";
 
 const DEFAULT_LANG: AppLanguage = "en";
 export const LANGS: [AppLanguage, ...Array<AppLanguage>] = [
     DEFAULT_LANG,
 ] as const;
+
+const LOG_LEVELS: [Level, ...Array<Level>] = [
+    "fatal",
+    "error",
+    "warn",
+    "info",
+    "debug",
+    "trace",
+];
 
 export const env = createEnv({
     isServer: true,
@@ -16,6 +26,8 @@ export const env = createEnv({
         HOST: z.string().min(1).optional().default("127.0.0.1"),
         PORT: z.coerce.number().optional().default(42069),
         LANG: z.preprocess(processLang, z.enum(LANGS)),
+
+        // auth
         GITHUB_CLIENT_ID: z.string().min(1),
         GITHUB_CLIENT_SECRET: z.string().min(1),
 
@@ -25,10 +37,7 @@ export const env = createEnv({
         DATABASE_SYNC_URL: z.string().min(1).optional(),
 
         // logging
-        LOG_LEVEL: z
-            .enum(["fatal", "error", "warn", "info", "debug", "trace"])
-            .optional()
-            .default("trace"),
+        LOG_LEVEL: z.enum(LOG_LEVELS).optional().default("trace"),
     },
 });
 
