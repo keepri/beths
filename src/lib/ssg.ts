@@ -5,17 +5,15 @@ import { renderToString } from "solid-js/web";
 
 import { buildDir, staticDir } from "@/config";
 import { IS_PRODUCTION } from "@/config/env";
+import { type PAGE_TAG } from "@/routes/constants";
 
 type Options = {
-    tag: string;
+    tag: PAGE_TAG;
     revalidateMs?: number;
     disabled?: boolean;
 };
 
-export async function withSSG(
-    Page: () => JSX.Element,
-    options: Options,
-): Promise<string | JSX.Element> {
+export async function withSSG(Page: JSX.Element, options: Options) {
     options.disabled ??= !IS_PRODUCTION;
 
     if (options.disabled) {

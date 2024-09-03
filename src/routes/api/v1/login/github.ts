@@ -18,7 +18,7 @@ const NAME = "GitHub";
 const PREFIX = "/github";
 
 export function githubRoutes(app: Elysia) {
-    return app.group(PREFIX, function routes(group) {
+    return app.group(PREFIX, function handleGithubRoutes(group) {
         group.config.name = NAME;
 
         group

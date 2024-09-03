@@ -4,6 +4,7 @@ import { APP_NAME, MAX_BODY_SIZE_KB, config } from "@/config";
 import { IS_PRODUCTION, env } from "@/config/env";
 import { context } from "@/context";
 import { cronJobs } from "@/cron";
+import { NotFoundError } from "@/errors/not-found";
 import { errorHandler } from "@/middleware/error";
 import { apiRoutes, pagesRoutes } from "@/routes";
 
@@ -24,12 +25,17 @@ const app = new Elysia(APP_CONFIG)
     .use(errorHandler)
     .use(apiRoutes)
     .use(pagesRoutes)
+    .all("*", handleNotFound)
     .onStart(handleStart);
 
 export type App = typeof app;
 
 export function startServer() {
     app.listen({});
+}
+
+function handleNotFound() {
+    throw new NotFoundError();
 }
 
 function handleStart(app: App) {

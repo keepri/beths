@@ -7,7 +7,7 @@ const NAME = "API";
 const PREFIX = "/" + API_PREFIX;
 
 export function apiRoutes(app: Elysia) {
-    return app.group(PREFIX, function routes(group) {
+    return app.group(PREFIX, function handleAPIRoutes(group) {
         group.config.name = NAME;
 
         group.use(v1Routes);

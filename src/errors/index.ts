@@ -1,24 +1,29 @@
-export const CUSTOM_ERROR_NAME = "CUSTOM_ERROR";
+import { type InvertedStatusMap } from "elysia";
+
+import { type ERROR_CODE } from "./utils";
 
 export type CustomErrorMetadata = Record<string, unknown>;
 export type CustomErrorConfig = {
-    name?: string;
+    name: string;
     message: string;
-    statusCode: number;
-    errorCode: number;
+    cause: unknown;
+    statusCode: keyof InvertedStatusMap;
+    errorCode: ERROR_CODE;
 };
 
 export class CustomError extends Error {
-    public statusCode: number;
-    public errorCode: number;
+    public statusCode: CustomErrorConfig["statusCode"];
+    public errorCode: CustomErrorConfig["errorCode"];
 
     constructor(
         public metadata: CustomErrorMetadata = {},
         config: CustomErrorConfig,
     ) {
         super(config.message);
-        this.name = config.name ?? CUSTOM_ERROR_NAME;
-        this.errorCode = config.errorCode;
+
+        this.name = config.name;
+        this.cause = config.cause;
         this.statusCode = config.statusCode;
+        this.errorCode = config.errorCode;
     }
 }

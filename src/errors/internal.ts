@@ -3,10 +3,7 @@ import {
     type CustomErrorConfig,
     type CustomErrorMetadata,
 } from ".";
-
-const MESSAGE = "Internal server error";
-const STATUS_CODE = 500;
-const ERROR_CODE = 5000;
+import { ERROR_CODE } from "./utils";
 
 export class InternalServerError extends CustomError {
     constructor(
@@ -14,10 +11,11 @@ export class InternalServerError extends CustomError {
         config?: Partial<CustomErrorConfig>,
     ) {
         super(metadata, {
-            name: config?.name,
-            message: config?.message ?? MESSAGE,
-            statusCode: config?.statusCode ?? STATUS_CODE,
-            errorCode: config?.errorCode ?? ERROR_CODE,
+            name: config?.name ?? "InternalServerError",
+            message: config?.message ?? "Internal server error",
+            cause: config?.cause ?? "An unexpected error occurred.",
+            statusCode: config?.statusCode ?? 500,
+            errorCode: config?.errorCode ?? ERROR_CODE.INTERNAL,
         });
     }
 }
