@@ -42,7 +42,7 @@
     "@elysiajs/bearer": "^1.1.1",
     "@elysiajs/cors": "^1.1.0",
     "@elysiajs/cron": "^1.1.0",
-    "@elysiajs/html": "1.0.2",
+    "@elysiajs/html": "^1.1.0",
     "@elysiajs/static": "^1.1.0",
     "@libsql/client": "^0.4.3",
     "@lucia-auth/adapter-drizzle": "^1.1.0",

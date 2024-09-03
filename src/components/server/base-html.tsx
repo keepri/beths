@@ -1,6 +1,8 @@
+// @ts-expect-error TODO import required due to bug in `@elysiajs/html` 1.1.0
+import { Html } from "@elysiajs/html";
 import { type ParentProps } from "solid-js";
 
-import { APP_NAME, staticDir } from "@/config";
+import { staticDir } from "@/config";
 import { type AppLanguage, env } from "@/config/env";
 
 type Props = ParentProps<{
@@ -10,7 +12,6 @@ type Props = ParentProps<{
 
 export function BaseHtml(props: Props) {
     props.lang ??= env.LANG;
-    props.title ??= APP_NAME;
 
     return (
         <html lang={props.lang}>

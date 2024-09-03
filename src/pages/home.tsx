@@ -1,3 +1,5 @@
+// @ts-expect-error TODO import required due to bug in `@elysiajs/html` 1.1.0
+import { Html } from "@elysiajs/html";
 import { type User } from "lucia";
 
 import { BaseHtml } from "@/components/server/base-html";
