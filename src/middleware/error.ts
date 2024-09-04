@@ -21,7 +21,6 @@ export function errorHandler(app: Elysia) {
             const log = ctx.log as Logger;
 
             const error = mapError(ctx.error);
-            const stack = mapStackTrace(ctx.error);
             const request: Record<string, unknown> = mapRequest(
                 ctx.request,
                 ctx.params,
@@ -35,7 +34,7 @@ export function errorHandler(app: Elysia) {
                     statusCode: error.statusCode,
                     errorCode: error.errorCode,
                     ...error.metadata,
-                    stack,
+                    stack: error.stack,
                     request,
                 },
                 error.message,
@@ -56,16 +55,20 @@ type MappedError = {
     name: string;
     message: string;
     cause: unknown;
+    stack: Array<StackEntry>;
     statusCode: keyof InvertedStatusMap;
     errorCode: ERROR_CODE;
     metadata: CustomErrorMetadata;
 };
 
 function mapError<T extends Error>(error: T): MappedError {
+    const stack = mapStackTrace(error);
+
     const mappedError: MappedError = {
         name: error.name,
         message: error.message,
         cause: error.cause ?? CAUSE,
+        stack,
         statusCode: 500,
         errorCode: ERROR_CODE.INTERNAL,
         // TODO populate with necessary info like the authenticated user, etc.
