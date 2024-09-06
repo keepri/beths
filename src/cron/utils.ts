@@ -1,6 +1,6 @@
 import { type CronConfig, cron } from "@elysiajs/cron";
 
-import { EVERY_TWO_MINUTES_PATTERN } from "./patterns";
+import { EVERY_FIVE_MINUTES_PATTERN } from "./patterns";
 
 type CreateCronConfig = Omit<CronConfig, "run" | "pattern"> &
     Partial<Pick<CronConfig, "pattern">>;
@@ -10,7 +10,7 @@ export function createCronJob(
     config: CreateCronConfig,
 ) {
     let fails = 0;
-    const pattern = config.pattern ?? EVERY_TWO_MINUTES_PATTERN;
+    const pattern = config.pattern ?? EVERY_FIVE_MINUTES_PATTERN;
 
     return cron(
         Object.assign(config, {
