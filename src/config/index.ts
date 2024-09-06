@@ -1,8 +1,9 @@
 import { bearer } from "@elysiajs/bearer";
 import { staticPlugin } from "@elysiajs/static";
-import { type Elysia } from "elysia";
+import { type Elysia, type ElysiaConfig } from "elysia";
 
 import { cors } from "./cors";
+import { IS_PRODUCTION, env } from "./env";
 import { html } from "./html";
 import { logger } from "./logger";
 
@@ -21,14 +22,24 @@ export function buildDir(path: string = ""): string {
     return OUT_DIR + path;
 }
 
+export const APP_CONFIG = {
+    name: APP_NAME,
+    serve: {
+        hostname: env.HOST,
+        port: env.PORT,
+        development: !IS_PRODUCTION,
+        maxRequestBodySize: MAX_BODY_SIZE_KB,
+    },
+} as const satisfies ElysiaConfig<undefined, undefined>;
+
 export function config(app: Elysia) {
+    const staticPluginConfig: Parameters<typeof staticPlugin>[0] = {
+        prefix: staticDir(),
+        assets: "static",
+    };
+
     return app
-        .use(
-            staticPlugin({
-                prefix: staticDir(),
-                assets: "static",
-            }),
-        )
+        .use(staticPlugin(staticPluginConfig))
         .use(bearer())
         .use(cors())
         .use(logger())

@@ -1,22 +1,12 @@
-import { Elysia, type ElysiaConfig } from "elysia";
+import { Elysia } from "elysia";
 
-import { APP_NAME, MAX_BODY_SIZE_KB, config } from "@/config";
-import { IS_PRODUCTION, env } from "@/config/env";
+import { APP_CONFIG, config } from "@/config";
+import { env } from "@/config/env";
 import { context } from "@/context";
 import { cronJobs } from "@/cron";
 import { NotFoundError } from "@/errors/not-found";
 import { errorHandler } from "@/middleware/error";
 import { apiRoutes, pagesRoutes } from "@/routes";
-
-const APP_CONFIG = {
-    name: APP_NAME,
-    serve: {
-        hostname: env.HOST,
-        port: env.PORT,
-        development: !IS_PRODUCTION,
-        maxRequestBodySize: MAX_BODY_SIZE_KB,
-    },
-} as const satisfies ElysiaConfig<undefined, undefined>;
 
 const app = new Elysia(APP_CONFIG)
     .use(config)
