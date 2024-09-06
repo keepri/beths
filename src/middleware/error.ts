@@ -21,11 +21,7 @@ export function errorHandler(app: Elysia) {
             const log = ctx.log as Logger;
 
             const error = mapError(ctx.error);
-            const request: Record<string, unknown> = mapRequest(
-                ctx.request,
-                ctx.params,
-                ctx.query,
-            );
+            const request = mapRequest(ctx.request, ctx.params, ctx.query);
 
             log.error(
                 {
@@ -105,7 +101,7 @@ function mapRequest<
     Req extends Request,
     Params extends Record<string, unknown>,
     Query extends Record<string, unknown>,
->(req: Req, params: Params, query: Query): Record<string, unknown> {
+>(req: Req, params: Params, query: Query) {
     return {
         method: req.method,
         url: req.url,
