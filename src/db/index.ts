@@ -2,6 +2,7 @@ import { createClient } from "@libsql/client";
 import { drizzle } from "drizzle-orm/libsql";
 
 import { env } from "@/config/env";
+import { log } from "@/config/logger";
 
 import * as schema from "./schema";
 
@@ -12,8 +13,12 @@ export const client = createClient({
 });
 
 if (env.DATABASE_SYNC_URL) {
-    console.log("Syncing local database replica...");
-    await client.sync();
+    log.info("Syncing local database replica...");
+    try {
+        await client.sync();
+    } catch (error) {
+        log.error(error, "Database sync failed.");
+    }
 }
 
 export const db = drizzle(client, {

@@ -2,6 +2,7 @@ import { Elysia } from "elysia";
 
 import { APP_CONFIG, config } from "@/config";
 import { env } from "@/config/env";
+import { log } from "@/config/logger";
 import { context } from "@/context";
 import { cronJobs } from "@/cron";
 import { NotFoundError } from "@/errors/not-found";
@@ -38,5 +39,5 @@ function handleStart(app: App) {
     const appName = app.config.name;
     const url =
         server.url.protocol + "//" + server.hostname + ":" + server.port;
-    console.log(`🚀 ${appName} is running on ${url} in ${env.NODE_ENV} mode.`);
+    log.info(`🚀 ${appName} is running on ${url} in ${env.NODE_ENV} mode.`);
 }

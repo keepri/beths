@@ -1,6 +1,6 @@
 import { type InvertedStatusMap } from "elysia";
 
-import { type ERROR_CODE } from "./utils";
+import { type ERROR_CODE } from "./constants";
 
 export type CustomErrorMetadata = Record<string, unknown>;
 export type CustomErrorConfig = {

@@ -12,7 +12,7 @@ function dbSyncCallback() {
         return;
     }
 
-    client.sync().catch((error) => {
-        console.error("Database sync failed.", error);
+    client.sync().catch(function onError(error) {
+        throw error;
     });
 }

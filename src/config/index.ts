@@ -5,7 +5,7 @@ import { type Elysia, type ElysiaConfig } from "elysia";
 import { cors } from "./cors";
 import { IS_PRODUCTION, env } from "./env";
 import { html } from "./html";
-import { logger } from "./logger";
+import { log } from "./logger";
 
 export const APP_NAME = "App";
 
@@ -42,6 +42,6 @@ export function config(app: Elysia) {
         .use(staticPlugin(staticPluginConfig))
         .use(bearer())
         .use(cors())
-        .use(logger())
+        .use(log.into())
         .use(html());
 }

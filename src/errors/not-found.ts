@@ -3,7 +3,7 @@ import {
     type CustomErrorConfig,
     type CustomErrorMetadata,
 } from ".";
-import { ERROR_CODE } from "./utils";
+import { ERROR_CODE } from "./constants";
 
 export class NotFoundError extends CustomError {
     constructor(
