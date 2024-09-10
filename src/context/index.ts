@@ -1,9 +1,9 @@
 import { type Elysia } from "elysia";
 
+import { withAuth } from "@/auth/lib/with-auth";
 import { env } from "@/config/env";
 import { db } from "@/db";
-import { withAuth } from "@/lib/auth";
-import { withSSG } from "@/lib/ssg";
+import { withSSG } from "@/routes/lib/with-ssg";
 
 export function context(app: Elysia) {
     return app.decorate({

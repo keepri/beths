@@ -1,9 +1,9 @@
 import { type InvertedStatusMap, ValidationError } from "elysia";
-import * as StackParser from "error-stack-parser";
 
-import { CustomError, type CustomErrorMetadata } from ".";
-import { ERROR_CODE } from "./constants";
-import { type StackEntry } from "./types";
+import { CustomError, type CustomErrorMetadata } from "@/errors";
+import { ERROR_CODE } from "@/errors/constants";
+
+import { type StackTraceEntry, mapStackTrace } from "./stack-trace";
 
 const CAUSE = "Unknown cause";
 
@@ -11,7 +11,7 @@ type MappedError = {
     name: string;
     message: string;
     cause: unknown;
-    stack: Array<StackEntry>;
+    stack: Array<StackTraceEntry>;
     statusCode: keyof InvertedStatusMap;
     errorCode: ERROR_CODE;
     metadata: CustomErrorMetadata;
@@ -44,30 +44,4 @@ export function mapError<T extends Error>(error: T): MappedError {
     }
 
     return mappedError;
-}
-
-export function mapStackTrace<T extends Error>(error: T): Array<StackEntry> {
-    const parsedStack = StackParser.parse(error);
-    const stack = parsedStack.map((frame) => ({
-        function: frame.functionName ?? "<anonymous>",
-        position: frame.lineNumber + ":" + frame.columnNumber,
-        file: frame.fileName,
-    }));
-
-    return stack;
-}
-
-export function mapRequest<
-    Req extends Request,
-    Params extends Record<string, unknown>,
-    Query extends Record<string, unknown>,
->(req: Req, params: Params, query: Query) {
-    return {
-        method: req.method,
-        url: req.url,
-        headers: req.headers,
-        params,
-        query,
-        body: req.body,
-    };
 }

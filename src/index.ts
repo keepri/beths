@@ -39,5 +39,5 @@ function handleStart(app: App) {
     const appName = app.config.name;
     const url =
         server.url.protocol + "//" + server.hostname + ":" + server.port;
-    log.info(`🚀 ${appName} is running on ${url} in ${env.NODE_ENV} mode.`);
+    log.info(`🚀 ${appName} is running on ${url} in ${env.NODE_ENV} mode`);
 }

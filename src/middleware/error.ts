@@ -3,7 +3,8 @@ import { type Elysia } from "elysia";
 
 import { CustomError } from "@/errors";
 import { InternalServerError } from "@/errors/internal";
-import { mapError, mapRequest } from "@/errors/utils";
+import { mapError } from "@/errors/lib/mappers/error";
+import { mapRequest } from "@/errors/lib/mappers/request";
 
 const CODE = "CUSTOM_ERROR";
 

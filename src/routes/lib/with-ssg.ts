@@ -39,7 +39,7 @@ export async function withSSG(Page: JSX.Element, options: Options) {
     return render(Page, cacheFile);
 }
 
-function render(Page: () => JSX.Element, file?: BunFile) {
+async function render(Page: JSX.Element, file?: BunFile) {
     const html = renderToString(Page)
         .replaceAll("&lt;", "<")
         .replaceAll("&gt;", ">");

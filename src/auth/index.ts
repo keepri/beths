@@ -1,7 +1,7 @@
 import "@lucia-auth/adapter-drizzle";
 import { DrizzleSQLiteAdapter } from "@lucia-auth/adapter-drizzle";
 import { GitHub } from "arctic";
-import { Lucia, TimeSpan, verifyRequestOrigin } from "lucia";
+import { Lucia, TimeSpan } from "lucia";
 
 import { IS_PRODUCTION, env } from "@/config/env";
 import { db } from "@/db";
@@ -42,18 +42,3 @@ export const auth = new Lucia(adapter, {
         };
     },
 });
-
-export function isCSRF(headers: Request["headers"]) {
-    const originHeader = headers.get("Origin");
-    let hostHeader = headers.get("Host");
-
-    if (!hostHeader) {
-        hostHeader = headers.get("X-Forwarded-Host");
-    }
-
-    if (!originHeader || !hostHeader) {
-        return true;
-    }
-
-    return !verifyRequestOrigin(originHeader, [hostHeader]);
-}

@@ -12,4 +12,21 @@ export const log = createPinoLogger({
         levelFirst: true,
         singleLine: true,
     }),
+    hooks: {
+        logMethod(args, method) {
+            const arg = args[0] as unknown;
+
+            if (!arg) {
+                this.debug("Logger called with no arguments");
+                return;
+            }
+
+            if (typeof arg === "object" && "code" in arg) {
+                // errors get logged in the error handler middleware
+                return;
+            }
+
+            method.apply(this, args);
+        },
+    },
 });

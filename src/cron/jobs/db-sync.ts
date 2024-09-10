@@ -1,7 +1,7 @@
 import { env } from "@/config/env";
 import { client } from "@/db";
 
-import { createCronJob } from "../utils";
+import { createCronJob } from "../lib/create";
 
 const DB_SYNC_CRON = "db_sync";
 

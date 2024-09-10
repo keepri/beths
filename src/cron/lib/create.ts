@@ -1,7 +1,7 @@
 import { type CronConfig, Patterns, cron } from "@elysiajs/cron";
 
 import { log } from "@/config/logger";
-import { mapError } from "@/errors/utils";
+import { mapError } from "@/errors/lib/mappers/error";
 
 type CreateCronConfig = Omit<CronConfig, "run" | "pattern" | "catch"> &
     Partial<Pick<CronConfig, "pattern">>;

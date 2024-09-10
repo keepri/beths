@@ -3,7 +3,7 @@ import { Html } from "@elysiajs/html";
 import { type User } from "lucia";
 
 import { BaseHtml } from "@/components/server/base-html";
-import { createAPIPath } from "@/routes/utils";
+import { createAPIPath } from "@/routes/lib/api-path";
 
 export type HomePageProps = {
     user: User | null;

@@ -2,7 +2,8 @@ import { type Logger } from "@bogeychan/elysia-logger/src/types";
 import { type Cookie as ElysiaCookie } from "elysia";
 import { type Cookie, type Session, type User } from "lucia";
 
-import { auth, isCSRF } from "@/auth";
+import { auth } from "@/auth";
+import { isCSRF } from "@/auth/lib/csrf";
 
 type AuthInfoContext = {
     request: Request;
