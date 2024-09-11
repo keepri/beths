@@ -7,16 +7,16 @@ import { buildDir, staticDir } from "@/config";
 import { IS_PRODUCTION } from "@/config/env";
 import { type PAGE_TAG } from "@/routes/constants";
 
-type Options = {
+export type Options = {
     tag: PAGE_TAG;
     revalidateMs?: number;
-    disabled?: boolean;
+    enabled?: boolean;
 };
 
 export async function withSSG(Page: JSX.Element, options: Options) {
-    options.disabled ??= !IS_PRODUCTION;
+    options.enabled ??= IS_PRODUCTION;
 
-    if (options.disabled) {
+    if (!options.enabled) {
         return render(Page);
     }
 

@@ -16,7 +16,7 @@ export const SESSION_LENGTH: TimeSpan = new TimeSpan(1, "d");
 
 const adapter = new DrizzleSQLiteAdapter(db, sessionsTable, usersTable);
 
-export const auth = new Lucia(adapter, {
+export const lucia = new Lucia(adapter, {
     sessionExpiresIn: SESSION_LENGTH,
     sessionCookie: {
         expires: true,

@@ -5,11 +5,11 @@ import { type User } from "lucia";
 import { BaseHtml } from "@/components/server/base-html";
 import { createAPIPath } from "@/routes/lib/api-path";
 
-export type HomePageProps = {
+export type Props = {
     user: User | null;
 };
 
-export function HomePage(props: HomePageProps) {
+export function HomePage(props: Props) {
     return (
         <BaseHtml>
             <body class="bg-sky-700">

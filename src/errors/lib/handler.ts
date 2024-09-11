@@ -8,11 +8,11 @@ import { mapRequest } from "@/errors/lib/mappers/request";
 
 const CODE = "CUSTOM_ERROR";
 
-export function errorHandler(app: Elysia) {
+export function errors(app: Elysia) {
     return app
         .error(CODE, CustomError)
         .error(CODE, InternalServerError)
-        .onError(function onError(ctx) {
+        .onError(function handleError(ctx) {
             // TODO improve error responses (problem details)
 
             // @ts-expect-error - `log` is actually defined but we can't InferErrorContext<App>

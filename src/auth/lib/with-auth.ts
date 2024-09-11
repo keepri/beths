@@ -1,7 +1,7 @@
 import { type InferContext } from "elysia";
 import { type Session, type User } from "lucia";
 
-import { auth } from "@/auth";
+import { lucia } from "@/auth";
 import { isCSRF } from "@/auth/lib/csrf";
 import { type App } from "@/index";
 
@@ -44,8 +44,8 @@ export async function withAuth(
     }
 
     const sessionId = cookieHeader
-        ? auth.readSessionCookie(cookieHeader)
-        : auth.readBearerToken(authorizationHeader ?? "");
+        ? lucia.readSessionCookie(cookieHeader)
+        : lucia.readBearerToken(authorizationHeader ?? "");
 
     if (!sessionId) {
         ctx.log.trace(
@@ -59,7 +59,7 @@ export async function withAuth(
         };
     }
 
-    const { user, session } = await auth.validateSession(sessionId);
+    const { user, session } = await lucia.validateSession(sessionId);
     ctx.log.trace({ userId: user?.id, sessionId }, "Session found.");
 
     if (!cookieHeader) {
@@ -71,14 +71,14 @@ export async function withAuth(
 
     if (!session) {
         ctx.log.trace({ sessionId }, "Session expired.");
-        const cookie = auth.createBlankSessionCookie();
+        const cookie = lucia.createBlankSessionCookie();
         ctx.cookie[cookie.name].set({
             ...cookie.attributes,
             value: cookie.value,
         });
     } else if (session.fresh) {
         ctx.log.trace({ sessionId }, "Session cookie refreshed.");
-        const cookie = auth.createSessionCookie(session.id);
+        const cookie = lucia.createSessionCookie(session.id);
         ctx.cookie[cookie.name].set({
             ...cookie.attributes,
             value: cookie.value,

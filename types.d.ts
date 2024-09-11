@@ -1,7 +1,7 @@
 import "solid-js/types/jsx";
 import { type ParentProps } from "solid-js/types/render/component";
 
-import { type auth } from "@/auth";
+import { type lucia } from "@/auth";
 import { type DbSession, type DbUser } from "@/db/schema";
 
 declare module "solid-js/types/jsx" {
@@ -29,7 +29,7 @@ declare module "solid-js/types/jsx" {
 declare module "lucia" {
     // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     interface Register {
-        Lucia: typeof auth;
+        Lucia: typeof lucia;
         DatabaseSessionAttributes: DbSession;
         DatabaseUserAttributes: DbUser;
     }
