@@ -60,7 +60,6 @@ export async function withAuth(
     }
 
     const { user, session } = await lucia.validateSession(sessionId);
-    ctx.log.trace({ userId: user?.id, sessionId }, "Session found.");
 
     if (!cookieHeader) {
         return {
