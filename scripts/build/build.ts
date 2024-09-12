@@ -22,8 +22,13 @@ await build({
 
 await buildJs();
 
-await write(file(buildDir("/package.json")), await PACKAGE_JSON.arrayBuffer());
-await write(file(buildDir("/.env")), await DOT_ENV.arrayBuffer());
+await write(file(buildDir("package.json")), await PACKAGE_JSON.arrayBuffer());
+await write(file(buildDir(".env")), await DOT_ENV.arrayBuffer());
 
 spawnSync(["bun", "tw"]);
+
+if (IS_PRODUCTION) {
+    spawnSync(["rm", staticDir("main.css")]);
+}
+
 spawn({ cmd: [MV_CMD, "-r", staticDir(), buildDir()] });

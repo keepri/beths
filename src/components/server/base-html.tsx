@@ -24,10 +24,10 @@ export function BaseHtml(props: Props) {
                     content="width=device-width, initial-scale=1.0"
                 />
 
-                <link href={staticDir("/styles.css")} rel="stylesheet" />
+                <link href={staticDir("styles.css")} rel="stylesheet" />
 
-                <script src={staticDir("/htmx.min.js")} />
-                <script type="module" src={staticDir("/bundle.min.js")} />
+                <script src={staticDir("htmx.min.js")} />
+                <script type="module" src={staticDir("bundle.min.js")} />
             </head>
 
             {props.children as "safe"}

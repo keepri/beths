@@ -1,6 +1,7 @@
 import { bearer } from "@elysiajs/bearer";
 import { staticPlugin } from "@elysiajs/static";
 import { type Elysia, type ElysiaConfig } from "elysia";
+import { join } from "node:path";
 
 import { cors } from "./cors";
 import { IS_PRODUCTION, env } from "./env";
@@ -12,14 +13,14 @@ export const APP_NAME = "App";
 export const MAX_BODY_SIZE_KB = 1024 * 1024 * 1; // 1mb
 
 const STATIC_DIR = "static";
-export function staticDir(path: string = ""): string {
-    return STATIC_DIR + path;
+export function staticDir(...path: Array<string>): string {
+    return join(STATIC_DIR, ...path);
 }
 
 // when changing this, also change package.json `start` script
 const OUT_DIR = ".out";
-export function buildDir(path: string = ""): string {
-    return OUT_DIR + path;
+export function buildDir(...path: Array<string>): string {
+    return join(OUT_DIR, ...path);
 }
 
 export const APP_CONFIG = {
