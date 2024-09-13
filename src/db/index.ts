@@ -23,5 +23,15 @@ if (env.DATABASE_SYNC_URL) {
 
 export const db = drizzle(client, {
     schema,
-    logger: true,
+    logger: {
+        logQuery(query, params) {
+            log.trace(
+                {
+                    query,
+                    params,
+                },
+                "Query",
+            );
+        },
+    },
 });
