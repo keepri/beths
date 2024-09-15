@@ -34,23 +34,25 @@ export const APP_CONFIG = {
     },
 } as const satisfies ElysiaConfig<undefined, undefined>;
 
-export function config(app: Elysia) {
-    const staticPluginConfig: Parameters<typeof staticPlugin>[0] = {
-        prefix: staticDir(),
-        assets: "static",
-    };
-    const loggerConfig: ElysiaLoggerOptions = {
-        autoLogging: {
-            ignore() {
-                return true;
-            },
-        },
-    };
+const STATIC_PLUGIN_CONFIG = {
+    prefix: staticDir(),
+    assets: "static",
+} as const satisfies Parameters<typeof staticPlugin>[0];
 
+const LOGGER_CONFIG = {
+    autoLogging: {
+        ignore(ctx) {
+            // we ignore error logging as we are doing it manually in the error handler
+            return ctx.isError;
+        },
+    },
+} as const satisfies ElysiaLoggerOptions;
+
+export function config(app: Elysia) {
     return app
-        .use(staticPlugin(staticPluginConfig))
+        .use(staticPlugin(STATIC_PLUGIN_CONFIG))
         .use(bearer())
         .use(cors())
-        .use(log.into(loggerConfig))
+        .use(log.into(LOGGER_CONFIG))
         .use(html());
 }

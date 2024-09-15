@@ -2,13 +2,13 @@ import { createPinoLogger } from "@bogeychan/elysia-logger";
 import { getId } from "correlation-id";
 import { default as pinoPretty } from "pino-pretty";
 
-import { env } from "@/config/env";
+import { IS_PRODUCTION, env } from "@/config/env";
 
 export const log = createPinoLogger({
     level: env.LOG_LEVEL,
     stream: pinoPretty({
-        colorize: true,
-        colorizeObjects: true,
+        colorize: !IS_PRODUCTION,
+        colorizeObjects: !IS_PRODUCTION,
         translateTime: "SYS:standard",
         levelFirst: true,
         singleLine: true,
