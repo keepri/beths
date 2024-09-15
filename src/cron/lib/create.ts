@@ -31,7 +31,7 @@ export function createCronJob(
                 );
             },
             // TODO check in later versions of Elysia if second argument, cron,
-            // has `cron.name` is available, as of v1.1.11 it is not
+            // has `cron.name` is available, as of v1.1.1 it is not
             catch(error) {
                 if (error instanceof Error) {
                     error = mapError(error);
