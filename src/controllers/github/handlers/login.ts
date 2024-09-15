@@ -10,6 +10,13 @@ export async function handleLogin(ctx: InferContext<App>) {
     const auth = await ctx.auth(ctx);
 
     if (auth.user) {
+        ctx.log.debug(
+            {
+                userId: auth.user.id,
+                sessionId: auth.session!.id,
+            },
+            "User already authenticated",
+        );
         // TODO implement referrer
         return ctx.redirect("/", 302);
     }
