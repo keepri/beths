@@ -1,4 +1,5 @@
 import { createPinoLogger } from "@bogeychan/elysia-logger";
+import { getId } from "correlation-id";
 import { default as pinoPretty } from "pino-pretty";
 
 import { env } from "@/config/env";
@@ -15,15 +16,28 @@ export const log = createPinoLogger({
     hooks: {
         logMethod(args, method) {
             const arg = args[0] as unknown;
+            const extras = { correlationId: getId() };
 
-            if (!arg) {
-                this.debug("Logger called with no arguments");
-                return;
-            }
+            switch (typeof arg) {
+                case "object": {
+                    if (arg === null) {
+                        args.unshift(extras);
+                        break;
+                    }
 
-            if (typeof arg === "object" && "code" in arg) {
-                // errors get logged in the error handler middleware
-                return;
+                    if (Array.isArray(arg)) {
+                        arg.push(getId());
+                        break;
+                    }
+
+                    Object.assign(arg, extras);
+                    break;
+                }
+
+                default: {
+                    args.unshift(extras);
+                    break;
+                }
             }
 
             method.apply(this, args);

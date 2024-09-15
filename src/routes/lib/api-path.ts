@@ -1,7 +1,7 @@
 import { isObject } from "@/lib/objects";
 
-import { API_PREFIX, V1_PREFIX } from "../constants";
-import { type APIVersion } from "../types";
+import { API_PREFIX, V1_PREFIX } from "./constants";
+import type { APIVersion } from "./types";
 
 type CreateAPIPathOptions = {
     version?: APIVersion;

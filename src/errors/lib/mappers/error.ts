@@ -1,8 +1,8 @@
 import { type InvertedStatusMap, ValidationError } from "elysia";
 
 import { CustomError, type CustomErrorMetadata } from "@/errors";
-import { ERROR_CODE } from "@/errors/constants";
 
+import { ERROR_CODE } from "../constants";
 import { type StackTraceEntry, mapStackTrace } from "./stack-trace";
 
 const CAUSE = "Unknown cause";

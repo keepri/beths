@@ -1,7 +1,7 @@
 import { type Elysia } from "elysia";
 
-import { handleHealth } from "@/handlers/health";
-import { V1_PREFIX } from "@/routes/constants";
+import { HealthController } from "@/controllers/health/controller";
+import { V1_PREFIX } from "@/routes/lib/constants";
 
 import { loginRoutes } from "./login";
 
@@ -12,7 +12,7 @@ export function v1Routes(app: Elysia) {
     return app.group(PREFIX, function handleRoutes(group) {
         group.config.name = NAME;
 
-        group.use(loginRoutes).get("/healthz", handleHealth);
+        group.use(loginRoutes).get("/healthz", HealthController.health);
 
         return group;
     });

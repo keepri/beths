@@ -1,3 +1,4 @@
+import type { ElysiaLoggerOptions } from "@bogeychan/elysia-logger/src/types";
 import { bearer } from "@elysiajs/bearer";
 import { staticPlugin } from "@elysiajs/static";
 import { type Elysia, type ElysiaConfig } from "elysia";
@@ -38,11 +39,18 @@ export function config(app: Elysia) {
         prefix: staticDir(),
         assets: "static",
     };
+    const loggerConfig: ElysiaLoggerOptions = {
+        autoLogging: {
+            ignore() {
+                return true;
+            },
+        },
+    };
 
     return app
         .use(staticPlugin(staticPluginConfig))
         .use(bearer())
         .use(cors())
-        .use(log.into())
+        .use(log.into(loggerConfig))
         .use(html());
 }

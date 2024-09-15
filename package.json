@@ -48,6 +48,7 @@
     "@lucia-auth/adapter-drizzle": "^1.1.0",
     "@t3-oss/env-core": "^0.8.0",
     "arctic": "^1.9.2",
+    "correlation-id": "^5.2.0",
     "drizzle-orm": "^0.33.0",
     "elysia": "^1.1.11",
     "error-stack-parser": "^2.1.4",

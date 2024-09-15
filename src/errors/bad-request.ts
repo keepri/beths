@@ -3,7 +3,7 @@ import {
     type CustomErrorConfig,
     type CustomErrorMetadata,
 } from ".";
-import { ERROR_CODE } from "./constants";
+import { ERROR_CODE } from "./lib/constants";
 
 export class BadRequestError extends CustomError {
     constructor(

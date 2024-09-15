@@ -1,6 +1,6 @@
 import { type Elysia } from "elysia";
 
-import { API_PREFIX } from "../constants";
+import { API_PREFIX } from "../lib/constants";
 import { v1Routes } from "./v1";
 
 const NAME = "API";
