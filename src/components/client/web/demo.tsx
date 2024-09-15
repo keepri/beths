@@ -4,12 +4,12 @@ import { isServer } from "solid-js/web";
 
 import { Button } from "@/components/client/button";
 
-type Props = {
-    foo: string;
+export type Props = {
+    foo: "bar";
 };
 
 const NAME = "x-demo";
-const INIT_PROPS: Props = { foo: "" } as const;
+const INIT_PROPS: Props = { foo: "bar" } as const;
 
 if (!isServer) {
     customElement<Props>(

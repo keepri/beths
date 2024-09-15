@@ -2,13 +2,13 @@ import "solid-js/types/jsx";
 import { type ParentProps } from "solid-js/types/render/component";
 
 import { type lucia } from "@/auth";
+import { type Props as DemoProps } from "@/components/client/web/demo";
 import { type DbSession, type DbUser } from "@/db/schema";
 
 declare module "solid-js/types/jsx" {
     namespace JSX {
         type DefaultAttributes = HTMLAttributes<HTMLElement>;
         type Props<T extends object = never> = ParentProps<
-            // TODO handle this warning @see @typescript-eslint/indent rules
             T & DefaultAttributes
         >;
 
@@ -16,7 +16,7 @@ declare module "solid-js/types/jsx" {
         // You can alternatively use `[componentName: string]: HtmlTag;` to allow any custom element name.
         // eslint-disable-next-line
         interface IntrinsicElements {
-            "x-demo": Props<{ foo: string }>;
+            "x-demo": Props<DemoProps>;
         }
 
         // eslint-disable-next-line
