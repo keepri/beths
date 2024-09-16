@@ -1,8 +1,16 @@
-import { handleRequest } from "./request-handler";
-import { type RequestHandler } from "./types";
+import { withId } from "correlation-id";
+import { type InferContext } from "elysia";
+
+import { type App } from "@/index";
+
+type RequestHandler = (ctx: InferContext<App>) => unknown;
 
 export abstract class Controller {
     static handleRequest(handler: RequestHandler) {
-        return handleRequest(handler);
+        return function (ctx: InferContext<App>) {
+            return withId(function () {
+                return handler(ctx);
+            });
+        };
     }
 }
