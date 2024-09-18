@@ -1,7 +1,7 @@
 import { type BunFile, file, spawnSync } from "bun";
 import { join } from "path";
 import { type JSX } from "solid-js";
-import { renderToString } from "solid-js/web";
+import { renderToStringAsync } from "solid-js/web";
 
 import { buildDir, staticDir } from "@/config";
 import { IS_PRODUCTION } from "@/config/env";
@@ -41,7 +41,7 @@ export async function withSSG(Page: JSX.Element, options: Options) {
 }
 
 async function render(Page: JSX.Element, file?: BunFile) {
-    const html = renderToString(Page)
+    const html = (await renderToStringAsync(Page))
         .replaceAll("&lt;", "<")
         .replaceAll("&gt;", ">");
 
