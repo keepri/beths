@@ -1,3 +1,5 @@
+export const CODE = "CUSTOM_ERROR";
+
 export enum ERROR_CODE {
     // Client
     BAD_REQUEST = 4000,

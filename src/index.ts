@@ -5,14 +5,14 @@ import { env } from "@/config/env";
 import { log } from "@/config/logger";
 import { context } from "@/context";
 import { cronJobs } from "@/cron";
-import { errors } from "@/errors/lib/handler";
+import { errors } from "@/errors/lib/errors";
 import { routes } from "@/routes";
 
 const app = new Elysia(APP_CONFIG)
+    .use(errors)
     .use(config)
     .use(context)
     .use(cronJobs)
-    .use(errors)
     .use(routes)
     .onStart(handleStart);
 

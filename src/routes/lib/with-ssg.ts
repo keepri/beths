@@ -5,7 +5,8 @@ import { renderToString } from "solid-js/web";
 
 import { buildDir, staticDir } from "@/config";
 import { IS_PRODUCTION } from "@/config/env";
-import { type PAGE_TAG } from "@/routes/constants";
+
+import { type PAGE_TAG } from "./constants";
 
 export type Options = {
     tag: PAGE_TAG;
