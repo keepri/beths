@@ -1,36 +1,73 @@
 import { createPinoLogger } from "@bogeychan/elysia-logger";
-import { getId } from "correlation-id";
 import { default as pinoPretty } from "pino-pretty";
 
-import { IS_PRODUCTION, env } from "@/config/env";
+import { env } from "@/config/env";
+import { mapRequest } from "@/errors/mappers/request";
 
+import { CORRELATION_ID_HEADER } from "./constants";
+
+const COLORIZE = true; // !IS_PRODUCTION
+
+/**
+ * @description WARN using this instance of logger will not include the custom props, e.g correlationId
+ */
 export const log = createPinoLogger({
     level: env.LOG_LEVEL,
     stream: pinoPretty({
-        colorize: !IS_PRODUCTION,
-        colorizeObjects: !IS_PRODUCTION,
+        colorize: COLORIZE,
+        colorizeObjects: COLORIZE,
         translateTime: "SYS:standard",
         levelFirst: true,
         singleLine: true,
     }),
     hooks: {
         logMethod(args, method) {
+            const extras = {};
             const arg = args[0] as unknown;
-            const extras = { correlationId: getId() };
+
+            if (args.length === 0 || arg === null) {
+                // @ts-expect-error args[0] can be anything
+                args[0] = extras;
+                args[1] = "Logger called with no parameters";
+                method.apply(this, args);
+                return;
+            }
 
             switch (typeof arg) {
                 case "object": {
-                    if (arg === null) {
-                        args.unshift(extras);
-                        break;
-                    }
-
                     if (Array.isArray(arg)) {
-                        arg.push(getId());
+                        args.unshift(extras);
+                        args[1] = arg.join(", ");
                         break;
                     }
 
-                    Object.assign(arg, extras);
+                    if ("request" in arg && arg.request instanceof Request) {
+                        const request = mapRequest(arg.request);
+
+                        if (
+                            request.headers[CORRELATION_ID_HEADER]?.length > 0
+                        ) {
+                            delete request.headers[CORRELATION_ID_HEADER];
+                        }
+
+                        // @ts-expect-error sht
+                        args[0] = {
+                            ...extras,
+                            requestInfo: request,
+                        };
+                        break;
+                    }
+
+                    for (const key in extras) {
+                        // @ts-expect-error sht
+                        if (typeof arg[key] !== "undefined") {
+                            continue;
+                        }
+
+                        // @ts-expect-error sht
+                        arg[key] = extras[key];
+                    }
+
                     break;
                 }
 

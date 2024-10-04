@@ -1,18 +1,13 @@
-import { cors as elysiaCors } from "@elysiajs/cors";
+import { cors } from "@elysiajs/cors";
+import { Elysia } from "elysia";
 
-import { IS_PRODUCTION, env } from "@/config/env";
+import { origin } from "./lib";
 
-export function cors() {
-    return elysiaCors({
-        allowedHeaders: "*",
-        origin: [origin(), "https://github.com"],
-        credentials: true,
-    });
-}
+const NAME = "Config.Cors";
+const CONFIG: Parameters<typeof cors>[0] = {
+    allowedHeaders: "*",
+    origin: [origin(), "https://github.com"],
+    credentials: true,
+} as const;
 
-export function origin() {
-    const protocol = IS_PRODUCTION ? "https://" : "http://";
-    const port = IS_PRODUCTION ? "" : `:${env.PORT}`;
-
-    return protocol + env.HOST + port;
-}
+export const CorsConfig = new Elysia({ name: NAME }).use(cors(CONFIG));

@@ -1,13 +1,10 @@
-import { Controller } from "../lib/base-controller";
-import { handleCallback } from "./handlers/callback";
-import { handleLogin } from "./handlers/login";
+import { Elysia } from "elysia";
 
-export class GithubController extends Controller {
-    static get login() {
-        return this.handleRequest(handleLogin);
-    }
+import { LoginCallbackHandler } from "./handlers/callback";
+import { LoginHandler } from "./handlers/login";
 
-    static get callback() {
-        return this.handleRequest(handleCallback);
-    }
-}
+const NAME = "Controller.Github";
+
+export const GithubController = new Elysia({ name: NAME })
+    .use(LoginHandler)
+    .use(LoginCallbackHandler);

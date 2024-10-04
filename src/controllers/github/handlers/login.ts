@@ -1,37 +1,44 @@
 import { generateState } from "arctic";
-import { type InferContext } from "elysia";
+import { Elysia } from "elysia";
 import { TimeSpan } from "lucia";
 
-import { github } from "@/auth";
-import { IS_PRODUCTION } from "@/config/env";
-import { type App } from "@/index";
+import { IS_PRODUCTION, env } from "@/config/env";
+import { LoggerPlugin } from "@/plugins/logger";
+import { AuthService } from "@/services/auth/service";
 
-export async function handleLogin(ctx: InferContext<App>) {
-    const auth = await ctx.auth(ctx);
+const NAME = "Handler.GithubLogin";
+const PATH = "/";
 
-    if (auth.user) {
-        ctx.log.debug(
-            {
-                userId: auth.user.id,
-                sessionId: auth.session!.id,
-            },
-            "User already authenticated",
-        );
-        // TODO implement referrer
-        return ctx.redirect("/", 302);
-    }
+export const LoginHandler = new Elysia({ name: NAME })
+    .use(AuthService)
+    .guard({
+        auth: false,
+    })
+    .use(LoggerPlugin)
+    .get(PATH, async function handleLogin(ctx) {
+        if (ctx.auth.user) {
+            ctx.log.debug(
+                {
+                    userId: ctx.auth.user.id,
+                    sessionId: ctx.auth.session!.id,
+                },
+                "User already authenticated",
+            );
+            // TODO implement referrer
+            return ctx.redirect("/", 302);
+        }
 
-    const state = generateState();
-    const url = await github.createAuthorizationURL(state);
+        const state = generateState();
+        const url = await ctx.auth.github.createAuthorizationURL(state);
 
-    ctx.cookie["github_oauth_state"].set({
-        value: state,
-        httpOnly: true,
-        secure: IS_PRODUCTION,
-        maxAge: new TimeSpan(1, "m").seconds(),
-        domain: ctx.config.env.HOST,
-        path: "/",
+        ctx.cookie["github_oauth_state"].set({
+            value: state,
+            httpOnly: true,
+            secure: IS_PRODUCTION,
+            maxAge: new TimeSpan(1, "m").seconds(),
+            domain: env.HOST,
+            path: "/",
+        });
+
+        return ctx.redirect(url.toString(), 302);
     });
-
-    return ctx.redirect(url.toString(), 302);
-}

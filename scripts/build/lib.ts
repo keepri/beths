@@ -2,14 +2,15 @@ import { type BunFile, build } from "bun";
 // @ts-expect-error - no types
 import { SolidPlugin } from "bun-plugin-solid";
 
-import { staticDir } from "@/config";
+import { IS_PRODUCTION } from "@/config/env";
+import { staticDir } from "@/config/lib";
 
 export async function buildJs() {
     await build({
         entrypoints: ["src/components/client/web/index.tsx"],
         outdir: staticDir(),
         naming: "bundle.min.js",
-        minify: true,
+        minify: IS_PRODUCTION,
         plugins: [SolidPlugin()],
     });
 }

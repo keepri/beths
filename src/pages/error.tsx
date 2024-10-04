@@ -2,7 +2,7 @@
 import { Html } from "@elysiajs/html";
 
 import { BaseHtml } from "@/components/server/base-html";
-import { type ERROR_CODE } from "@/errors/lib/constants";
+import { type ERROR_CODE } from "@/errors/constants";
 
 export type Props = {
     code: ERROR_CODE;
@@ -13,10 +13,13 @@ export function ErrorPage(props: Props) {
         <BaseHtml>
             <body class="grid place-items-center min-h-screen">
                 <main>
-                    <h1 class="text-3xl font-bold mb-4">
+                    <h1 class="text-3xl font-bold mb-2">
                         Something went wrong
                     </h1>
-                    <p class="text-center">#{props.code}</p>
+                    <p class="text-center mb-4">#{props.code}</p>
+                    <a href="/" class="underline text-center">
+                        Go home
+                    </a>
                 </main>
             </body>
         </BaseHtml>

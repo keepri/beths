@@ -1,8 +1,9 @@
-import { Controller } from "../lib/base-controller";
-import { handleHome } from "./handlers/home";
+import Elysia from "elysia";
 
-export class PageController extends Controller {
-    static get home() {
-        return this.handleRequest(handleHome);
-    }
-}
+import { HomePageHandler } from "./handlers/home";
+
+const NAME = "Controller.RootPages";
+
+export const RootPagesController = new Elysia({ name: NAME }).use(
+    HomePageHandler,
+);

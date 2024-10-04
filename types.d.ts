@@ -1,9 +1,9 @@
 import "solid-js/types/jsx";
 import { type ParentProps } from "solid-js/types/render/component";
 
-import { type lucia } from "@/auth";
 import { type Props as DemoProps } from "@/components/client/web/demo";
-import { type DbSession, type DbUser } from "@/db/schema";
+import { type LUCIA } from "@/config/lucia";
+import { type DbSession, type DbUser } from "@/db/types";
 
 declare module "solid-js/types/jsx" {
     namespace JSX {
@@ -14,12 +14,12 @@ declare module "solid-js/types/jsx" {
 
         // INFO We are declaring each custom element explicitly so that we can use them in JSX.
         // You can alternatively use `[componentName: string]: HtmlTag;` to allow any custom element name.
-        // eslint-disable-next-line
+        // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
         interface IntrinsicElements {
             "x-demo": Props<DemoProps>;
         }
 
-        // eslint-disable-next-line
+        // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
         interface HTMLAttributes {
             safe?: boolean;
         }
@@ -29,7 +29,7 @@ declare module "solid-js/types/jsx" {
 declare module "lucia" {
     // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     interface Register {
-        Lucia: typeof lucia;
+        Lucia: typeof LUCIA;
         DatabaseSessionAttributes: DbSession;
         DatabaseUserAttributes: DbUser;
     }

@@ -1,12 +1,12 @@
 {
   "type": "module",
   "module": "ESNext",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "name": "beth",
   "author": "KIPRI",
   "scripts": {
     "dev": "concurrently \"bun db:studio\" \"bun tw:dev\" \"bun --watch main.ts\" \"bun js:dev\"",
-    "build": "bun scripts/build/build.ts",
+    "make": "bun scripts/build/build.ts",
     "start": "bun .out/main.js",
     "db:dev": "turso dev -f src/db/data/db.sqlite",
     "db:check": "drizzle-kit check",
@@ -18,9 +18,9 @@
     "js:dev": "bun scripts/build/build-js.ts",
     "tw": "tailwindcss -i static/main.css -o static/styles.css --minify",
     "tw:dev": "tailwindcss -i static/main.css -o static/styles.css --watch",
-    "typecheck": "bunx --bun tsc",
-    "format": "prettier . --write",
-    "lint": "eslint ."
+    "format": "prettier --write . | grep -v '\\(unchanged\\)' || true",
+    "lint": "eslint . && bunx --bun tsc --project tsconfig.lint.json",
+    "clean": "rm -fr .out node_modules static/bundle.min.js static/styles.css"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
@@ -34,11 +34,11 @@
     "eslint": "^8.57.1",
     "eslint-plugin-jsdoc": "^48.11.0",
     "prettier": "^3.3.3",
-    "tailwindcss": "^3.4.12",
+    "tailwindcss": "^3.4.13",
     "typescript": "^5.6.2"
   },
   "dependencies": {
-    "@bogeychan/elysia-logger": "^0.1.2",
+    "@bogeychan/elysia-logger": "^0.1.4",
     "@elysiajs/bearer": "^1.1.2",
     "@elysiajs/cors": "^1.1.1",
     "@elysiajs/cron": "^1.1.1",
@@ -48,15 +48,16 @@
     "@lucia-auth/adapter-drizzle": "^1.1.0",
     "@t3-oss/env-core": "^0.8.0",
     "arctic": "^1.9.2",
+    "clsx": "^2.1.1",
     "correlation-id": "^5.2.0",
     "drizzle-orm": "^0.33.0",
-    "elysia": "^1.1.13",
+    "elysia": "^1.1.17",
     "error-stack-parser": "^2.1.4",
     "lucia": "^3.2.0",
     "oslo": "^1.2.1",
     "pino-pretty": "^10.3.1",
-    "solid-element": "^1.8.1",
-    "solid-js": "^1.8.22",
+    "solid-element": "^1.9.0",
+    "solid-js": "^1.9.1",
     "zod": "^3.23.8"
   }
 }

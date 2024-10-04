@@ -1,4 +1,4 @@
-// @ts-expect-error TODO import required due to bug in `@elysiajs/html` 1.1.1
+// @ts-expect-error TODO required due to bug in `@elysiajs/html` 1.1.1
 import { Html } from "@elysiajs/html";
 import { type User } from "lucia";
 

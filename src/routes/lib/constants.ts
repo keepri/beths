@@ -1,12 +1,8 @@
 import { TimeSpan } from "lucia";
 
-import { type APIPrefix, type APIVersion } from "./types";
-
-export const API_PREFIX: APIPrefix = "api";
-export const V1_PREFIX: APIVersion = "v1";
+export const API_PREFIX = "api";
+export const API_VERSION_PREFIX = "v";
 
 export const REVALIDATE_MS = new TimeSpan(7, "d").milliseconds();
 
-export enum PAGE_TAG {
-    HOME = "home-page",
-}
+export const MAX_BODY_SIZE_KB = 1024 * 1024 * 1; // 1mb

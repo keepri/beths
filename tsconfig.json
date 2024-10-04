@@ -1,7 +1,9 @@
 {
     "compilerOptions": {
         "lib": [
-            "ESNext"
+            "ESNext",
+            "DOM",
+            "DOM.Iterable"
         ],
         "target": "ESNext",
         "module": "ESNext",
@@ -12,8 +14,7 @@
             ]
         },
         "types": [
-            "solid-js",
-            "solid-js/dom"
+            "solid-js"
         ],
         /* JSX */
         "jsx": "react-jsx",
@@ -46,9 +47,8 @@
     },
     "include": [
         "main.ts",
-        "src/**/*.ts",
-        "src/**/*.tsx",
-        "scripts/**/*.ts",
+        "src/components/client/web/index.tsx",
+        "scripts/**/*",
         "*.*js",
         "*.d.ts"
     ]

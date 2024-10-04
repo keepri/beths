@@ -1,9 +1,10 @@
-// @ts-expect-error TODO import required due to bug in `@elysiajs/html` 1.1.1
+// @ts-expect-error TODO required due to bug in `@elysiajs/html` 1.1.1
 import { Html } from "@elysiajs/html";
 import { type ParentProps } from "solid-js";
 
-import { staticDir } from "@/config";
-import { type AppLanguage, env } from "@/config/env";
+import { env } from "@/config/env";
+import { staticDir } from "@/config/lib";
+import { type AppLanguage } from "@/config/types";
 
 type Props = ParentProps<{
     title?: string;
@@ -24,10 +25,10 @@ export function BaseHtml(props: Props) {
                     content="width=device-width, initial-scale=1.0"
                 />
 
-                <link href={staticDir("styles.css")} rel="stylesheet" />
+                <link href={"/" + staticDir("styles.css")} rel="stylesheet" />
 
-                <script src={staticDir("htmx.min.js")} />
-                <script type="module" src={staticDir("bundle.min.js")} />
+                <script src={"/" + staticDir("htmx.min.js")} />
+                <script type="module" src={"/" + staticDir("bundle.min.js")} />
             </head>
 
             {props.children as "safe"}

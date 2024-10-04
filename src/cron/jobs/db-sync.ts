@@ -1,18 +1,25 @@
+import { LIBSQL_CLIENT } from "@/config/db";
 import { env } from "@/config/env";
-import { client } from "@/db";
+import { log } from "@/config/logger";
+import { mapError } from "@/errors/mappers/error";
 
 import { createCronJob } from "../lib/create";
 
-const DB_SYNC_CRON = "db_sync";
+const NAME = "Cron.DbSync";
 
-export const dbSync = createCronJob(dbSyncCallback, { name: DB_SYNC_CRON });
+export const DbSyncCron = createCronJob(dbSync, {
+    name: NAME,
+});
 
-function dbSyncCallback() {
+function dbSync() {
     if (!env.DATABASE_SYNC_URL) {
         return;
     }
 
-    client.sync().catch(function onError(error) {
-        throw error;
+    log.info("Syncing local database replica");
+
+    LIBSQL_CLIENT.sync().catch(function onError(error) {
+        const e = mapError(error);
+        log.error({ error: e }, "Database sync failed");
     });
 }

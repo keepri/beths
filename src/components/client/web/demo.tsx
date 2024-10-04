@@ -9,7 +9,9 @@ export type Props = {
 };
 
 const NAME = "x-demo";
-const INIT_PROPS: Props = { foo: "bar" } as const;
+const INIT_PROPS: Props = {
+    foo: "bar",
+} as const;
 
 if (!isServer) {
     customElement<Props>(
@@ -18,7 +20,7 @@ if (!isServer) {
         function Demo(props: Props, { element: { children } }) {
             noShadowDOM();
 
-            const [resource] = createResource(async () => {
+            const [resource] = createResource<string>(async function () {
                 return new Promise((resolve) => {
                     setTimeout(() => {
                         resolve("DARY!");
@@ -40,7 +42,9 @@ if (!isServer) {
                     <Suspense
                         fallback={<h1 class="text-white">Wait for it...</h1>}
                     >
-                        <h1 class="text-white">{resource()}</h1>
+                        <h1 safe class="text-white">
+                            {resource()}
+                        </h1>
                     </Suspense>
 
                     <Show when={Boolean(msg())}>
@@ -51,9 +55,7 @@ if (!isServer) {
 
                     <Button onClick={handleClick}>say hi</Button>
 
-                    <p safe class="text-green-300">
-                        {props.foo}
-                    </p>
+                    <p class="text-green-300">{props.foo}</p>
                 </>
             );
         },

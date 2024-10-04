@@ -1,2 +1,2 @@
-export type APIPrefix = "api";
-export type APIVersion = "v1";
+type PageTag = "home" | "not-found";
+export type SSGPageTag<T extends string = PageTag> = `${T}-page`;

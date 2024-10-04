@@ -1,4 +1,4 @@
-export function isObject(obj: unknown): boolean {
+export function isObject(obj: unknown): obj is object {
     const isObjectType = typeof obj === "object";
     const isNotNull = obj !== null;
 

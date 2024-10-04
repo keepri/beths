@@ -1,20 +1,13 @@
 import { createEnv } from "@t3-oss/env-core";
-import { type Level } from "pino";
 import { z } from "zod";
 
-const DEFAULT_LANG: AppLanguage = "en";
-export const LANGS: [AppLanguage, ...Array<AppLanguage>] = [
-    DEFAULT_LANG,
-] as const;
-
-const LOG_LEVELS: [Level, ...Array<Level>] = [
-    "fatal",
-    "error",
-    "warn",
-    "info",
-    "debug",
-    "trace",
-];
+import {
+    API_VERSIONS,
+    DEFAULT_API_VERSION,
+    LANGS,
+    LOG_LEVELS,
+} from "./constants";
+import { processLang } from "./lib";
 
 export const env = createEnv({
     isServer: true,
@@ -26,6 +19,7 @@ export const env = createEnv({
         HOST: z.string().min(1).optional().default("127.0.0.1"),
         PORT: z.coerce.number().optional().default(42069),
         LANG: z.preprocess(processLang, z.enum(LANGS)),
+        API_VERSION: z.enum(API_VERSIONS).default(DEFAULT_API_VERSION),
 
         // auth
         GITHUB_CLIENT_ID: z.string().min(1),
@@ -43,21 +37,4 @@ export const env = createEnv({
 
 export const IS_PRODUCTION = env.NODE_ENV === "production";
 
-export type AppLanguage = "en";
 export type Env = typeof env;
-
-function processLang(lang: unknown): AppLanguage {
-    if (typeof lang !== "string") {
-        return DEFAULT_LANG;
-    }
-
-    lang = lang.split("_")[0];
-
-    // @ts-expect-error - lang is a string
-    if (!LANGS.includes(lang)) {
-        return DEFAULT_LANG;
-    }
-
-    // we know lang is of type AppLanguage here
-    return lang as AppLanguage;
-}
