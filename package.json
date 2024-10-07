@@ -18,7 +18,7 @@
     "js:dev": "bun scripts/build/build-js.ts",
     "tw": "tailwindcss -i static/main.css -o static/styles.css --minify",
     "tw:dev": "tailwindcss -i static/main.css -o static/styles.css --watch",
-    "format": "prettier --write . | grep -v '\\(unchanged\\)' || true",
+    "format": "prettier --write . | grep -v '\\(unchanged\\)' || echo \"No files changed\"",
     "lint": "eslint . && bunx --bun tsc --project tsconfig.lint.json",
     "clean": "rm -fr .out node_modules static/bundle.min.js static/styles.css"
   },
@@ -51,7 +51,7 @@
     "clsx": "^2.1.1",
     "correlation-id": "^5.2.0",
     "drizzle-orm": "^0.33.0",
-    "elysia": "^1.1.17",
+    "elysia": "^1.1.18",
     "error-stack-parser": "^2.1.4",
     "lucia": "^3.2.0",
     "oslo": "^1.2.1",
