@@ -35,7 +35,7 @@
     "eslint-plugin-jsdoc": "^48.11.0",
     "prettier": "^3.3.3",
     "tailwindcss": "^3.4.13",
-    "typescript": "^5.6.2"
+    "typescript": "^5.6.3"
   },
   "dependencies": {
     "@bogeychan/elysia-logger": "^0.1.4",
@@ -51,13 +51,13 @@
     "clsx": "^2.1.1",
     "correlation-id": "^5.2.0",
     "drizzle-orm": "^0.33.0",
-    "elysia": "^1.1.18",
+    "elysia": "^1.1.19",
     "error-stack-parser": "^2.1.4",
-    "lucia": "^3.2.0",
+    "lucia": "^3.2.1",
     "oslo": "^1.2.1",
     "pino-pretty": "^10.3.1",
     "solid-element": "^1.9.0",
-    "solid-js": "^1.9.1",
+    "solid-js": "^1.9.2",
     "zod": "^3.23.8"
   }
 }
