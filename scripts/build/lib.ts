@@ -5,11 +5,14 @@ import { SolidPlugin } from "bun-plugin-solid";
 import { IS_PRODUCTION } from "@/config/env";
 import { staticDir } from "@/config/lib";
 
+const ENTRYPOINT = "src/entry-client.tsx";
+const NAME = "bundle.min.js";
+
 export async function buildJs() {
     await build({
-        entrypoints: ["src/components/client/web/index.tsx"],
+        entrypoints: [ENTRYPOINT],
         outdir: staticDir(),
-        naming: "bundle.min.js",
+        naming: NAME,
         minify: IS_PRODUCTION,
         plugins: [SolidPlugin()],
     });

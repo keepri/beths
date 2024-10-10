@@ -47,7 +47,7 @@
     },
     "include": [
         "main.ts",
-        "src/components/client/web/index.tsx",
+        "src/entry-client.tsx",
         "scripts/**/*",
         "*.*js",
         "*.d.ts"
