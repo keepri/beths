@@ -51,7 +51,7 @@
     "clsx": "^2.1.1",
     "correlation-id": "^5.2.0",
     "drizzle-orm": "^0.33.0",
-    "elysia": "^1.1.19",
+    "elysia": "^1.1.21",
     "error-stack-parser": "^2.1.4",
     "lucia": "^3.2.1",
     "oslo": "^1.2.1",
