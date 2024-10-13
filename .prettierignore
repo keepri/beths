@@ -3,9 +3,9 @@ src/db/data/
 src/db/migrations/
 static/
 node_modules/
-.env.*
+.env*
 .*ignore
 *.lockb
 *.json
 *.md
-tsconfig.tsbuildinfo
+*.tsbuildinfo
