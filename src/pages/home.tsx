@@ -2,6 +2,7 @@
 import { Html } from "@elysiajs/html";
 import { type User } from "lucia";
 
+import { Button } from "@/components/atoms/button";
 import { BaseHtml } from "@/components/server/base-html";
 import { createAPIPath } from "@/routes/lib/api-path";
 
@@ -21,6 +22,10 @@ export function HomePage(props: Props) {
                 <x-demo foo="bar">
                     <h1 class="text-blue-300">Hello from child node.</h1>
                 </x-demo>
+
+                <Button class="block" hx-get="/api/v1/healthz">
+                    HTMX is...
+                </Button>
 
                 {!props.user ? (
                     <a

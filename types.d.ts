@@ -1,7 +1,7 @@
 import "solid-js/types/jsx";
 import { type ParentProps } from "solid-js/types/render/component";
 
-import { type Props as DemoProps } from "@/components/client/web/demo";
+import { type Props as DemoProps } from "@/components/client/web-components/demo";
 import { type LUCIA } from "@/config/lucia";
 import { type DbSession, type DbUser } from "@/db/types";
 
