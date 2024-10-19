@@ -1,1 +1,1 @@
-import "@/components/client/web-components/demo";
+import "@/pages/components/client/web-components/demo";

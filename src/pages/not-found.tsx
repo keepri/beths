@@ -1,8 +1,8 @@
 // @ts-expect-error TODO import required due to bug in `@elysiajs/html` 1.1.1
 import { Html } from "@elysiajs/html";
 
-import { BaseHtml } from "@/components/server/base-html";
 import { type ERROR_CODE } from "@/errors/constants";
+import { BaseHtml } from "@/pages/components/server/base-html";
 
 export type Props = {
     code: ERROR_CODE;

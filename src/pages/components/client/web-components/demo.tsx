@@ -2,7 +2,7 @@ import { customElement, noShadowDOM } from "solid-element";
 import { Show, Suspense, createResource, createSignal } from "solid-js";
 import { isServer } from "solid-js/web";
 
-import { Button } from "@/components/atoms/button";
+import { Button } from "@/pages/components/atoms/button";
 
 export type Props = {
     foo: "bar";

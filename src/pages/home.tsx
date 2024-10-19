@@ -2,8 +2,8 @@
 import { Html } from "@elysiajs/html";
 import { type User } from "lucia";
 
-import { Button } from "@/components/atoms/button";
-import { BaseHtml } from "@/components/server/base-html";
+import { Button } from "@/pages/components/atoms/button";
+import { BaseHtml } from "@/pages/components/server/base-html";
 import { createAPIPath } from "@/routes/lib/api-path";
 
 export type Props = {

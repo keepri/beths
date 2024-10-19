@@ -1,9 +1,9 @@
 import "solid-js/types/jsx";
 import { type ParentProps } from "solid-js/types/render/component";
 
-import { type Props as DemoProps } from "@/components/client/web-components/demo";
 import { type LUCIA } from "@/config/lucia";
 import { type DbSession, type DbUser } from "@/db/types";
+import { type Props as DemoProps } from "@/pages/components/client/web-components/demo";
 
 declare module "solid-js/types/jsx" {
     namespace JSX {
