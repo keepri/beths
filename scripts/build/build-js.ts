@@ -2,7 +2,7 @@ import { watch } from "fs";
 
 import { buildJs } from "./lib";
 
-const WATCH_DIR = "src/components/client";
+const WATCH_DIR = "src/pages/components/client";
 const TIMEOUT_MS = 500;
 
 let TIMER: Timer;
