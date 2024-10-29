@@ -8,9 +8,10 @@ logs.md
 
 .cache
 
-# Dependency directories
+# Dependencies
 
 node_modules/
+bun.lockb
 
 # TypeScript cache
 
