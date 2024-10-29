@@ -10,6 +10,7 @@ export function Button(props: Props) {
 
     return (
         <button
+            hx-trigger="click delay:250ms"
             class={clsx(
                 local.class,
                 "text-white border rounded py-1 px-3 active:scale-95",
