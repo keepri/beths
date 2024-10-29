@@ -1,3 +1,4 @@
+import type * as htmx from "htmx.org";
 import "solid-js/types/jsx";
 import { type ParentProps } from "solid-js/types/render/component";
 
@@ -32,5 +33,12 @@ declare module "lucia" {
         Lucia: typeof LUCIA;
         DatabaseSessionAttributes: DbSession;
         DatabaseUserAttributes: DbUser;
+    }
+}
+
+declare global {
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+    interface Window {
+        htmx: typeof htmx;
     }
 }

@@ -27,7 +27,6 @@ export function BaseHtml(props: Props) {
 
                 <link href={"/" + staticDir("styles.css")} rel="stylesheet" />
 
-                <script src={"/" + staticDir("htmx.min.js")} />
                 <script type="module" src={"/" + staticDir("bundle.min.js")} />
             </head>
 
