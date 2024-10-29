@@ -40,7 +40,8 @@ static/bundle.min.js
 
 # Database Local files
 
-src/db/data
+src/db/data/
+!src/db/data/.gitkeep
 
 # Finder (MacOS) folder config
 .DS_Store
