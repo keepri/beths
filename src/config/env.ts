@@ -22,8 +22,9 @@ export const env = createEnv({
         API_VERSION: z.enum(API_VERSIONS).default(DEFAULT_API_VERSION),
 
         // auth
-        GITHUB_CLIENT_ID: z.string().min(1),
-        GITHUB_CLIENT_SECRET: z.string().min(1),
+        // TODO: remove `.optional()` when using
+        GITHUB_CLIENT_ID: z.string().min(1).optional(),
+        GITHUB_CLIENT_SECRET: z.string().min(1).optional(),
 
         // database
         DATABASE_URL: z.string().min(1),

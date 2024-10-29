@@ -1,16 +1,10 @@
 // @ts-expect-error TODO required due to bug in `@elysiajs/html` 1.1.1
 import { Html } from "@elysiajs/html";
-import { type User } from "lucia";
 
 import { Button } from "@/pages/components/atoms/button";
 import { BaseHtml } from "@/pages/components/server/base-html";
-import { createAPIPath } from "@/routes/lib/api-path";
 
-export type Props = {
-    user: User | null;
-};
-
-export function HomePage(props: Props) {
+export function HomePage() {
     return (
         <BaseHtml>
             <body class="bg-sky-700">
@@ -26,19 +20,6 @@ export function HomePage(props: Props) {
                 <Button class="block" hx-get="/api/v1/healthz">
                     HTMX is...
                 </Button>
-
-                {!props.user ? (
-                    <a
-                        href={createAPIPath("/login/github")}
-                        class="text-teal-300 underline"
-                    >
-                        Sign in with GitHub
-                    </a>
-                ) : (
-                    <p safe class="text-purple-300">
-                        Welcome, {props.user.username}.
-                    </p>
-                )}
             </body>
         </BaseHtml>
     );
