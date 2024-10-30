@@ -15,6 +15,8 @@ const HOST = "127.0.0.1";
 const PORT = 42069;
 const DATABASE_URL = `http://${HOST}:8080`;
 const LOG_LEVEL: Level = "trace";
+const ENV = ["development", "staging", "production"] as const;
+const [DEV] = ENV;
 
 export const env = createEnv({
     isServer: true,
@@ -22,7 +24,7 @@ export const env = createEnv({
     emptyStringAsUndefined: true,
     server: {
         // server
-        NODE_ENV: z.enum(["development", "staging", "production"]),
+        NODE_ENV: z.enum(ENV).default(DEV),
         HOST: z.string().min(1).optional().default(HOST),
         PORT: z.coerce.number().optional().default(PORT),
         LANG: z.preprocess(processLang, z.enum(LANGS)),
