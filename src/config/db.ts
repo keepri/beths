@@ -9,10 +9,7 @@ import { log } from "./logger";
 import { type CreateDrizzleClientConfig } from "./types";
 
 export const LIBSQL_CLIENT = createClient({
-    // DATABASE_URL is possibly undefined, but as `@libsql/client` does not throw an error if the `url` is undefined,
-    // we can safely use `!` to suppress the TS error and handle the error, in the try-catch block below,
-    // in case `LIBSQL_CLIENT` is used inside the application.
-    url: env.DATABASE_URL!,
+    url: env.DATABASE_URL,
     syncUrl: env.DATABASE_SYNC_URL,
     authToken: env.DATABASE_AUTH_TOKEN,
 });

@@ -1,4 +1,5 @@
 import { createEnv } from "@t3-oss/env-core";
+import { type Level } from "pino";
 import { z } from "zod";
 
 import {
@@ -9,15 +10,21 @@ import {
 } from "./constants";
 import { processLang } from "./lib";
 
+// not to be exported
+const HOST = "127.0.0.1";
+const PORT = 42069;
+const DATABASE_URL = `http://${HOST}:8080`;
+const LOG_LEVEL: Level = "trace";
+
 export const env = createEnv({
     isServer: true,
     runtimeEnv: process.env,
     emptyStringAsUndefined: true,
     server: {
         // server
-        NODE_ENV: z.enum(["development", "production"]),
-        HOST: z.string().min(1).optional().default("127.0.0.1"),
-        PORT: z.coerce.number().optional().default(42069),
+        NODE_ENV: z.enum(["development", "staging", "production"]),
+        HOST: z.string().min(1).optional().default(HOST),
+        PORT: z.coerce.number().optional().default(PORT),
         LANG: z.preprocess(processLang, z.enum(LANGS)),
         API_VERSION: z.enum(API_VERSIONS).default(DEFAULT_API_VERSION),
 
@@ -27,12 +34,12 @@ export const env = createEnv({
         GITHUB_CLIENT_SECRET: z.string().min(1).optional(),
 
         // database
-        DATABASE_URL: z.string().min(1).optional(),
+        DATABASE_URL: z.string().min(1).default(DATABASE_URL),
         DATABASE_AUTH_TOKEN: z.string().min(1).optional(),
         DATABASE_SYNC_URL: z.string().min(1).optional(),
 
         // logging
-        LOG_LEVEL: z.enum(LOG_LEVELS).optional().default("trace"),
+        LOG_LEVEL: z.enum(LOG_LEVELS).optional().default(LOG_LEVEL),
     },
 });
 

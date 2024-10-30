@@ -5,7 +5,7 @@
   "name": "beth",
   "author": "KIPRI",
   "scripts": {
-    "dev": "concurrently \"bun db:studio\" \"bun tw:dev\" \"bun --watch main.ts\" \"bun js:dev\"",
+    "dev": "concurrently \"bun db:dev\" \"bun db:studio\" \"bun tw:dev\" \"bun --watch main.ts\" \"bun js:dev\"",
     "make": "bun scripts/build/build.ts",
     "start": "bun .out/main.js",
     "db:dev": "turso dev -f src/db/data/db.sqlite",
