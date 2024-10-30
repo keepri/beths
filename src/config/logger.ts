@@ -5,6 +5,7 @@ import { env } from "@/config/env";
 import { mapRequest } from "@/errors/mappers/request";
 
 import { CORRELATION_ID_HEADER } from "./constants";
+import { isCorrelationId, origin } from "./lib";
 
 const COLORIZE = true; // !IS_PRODUCTION
 
@@ -43,16 +44,19 @@ export const log = createPinoLogger({
 
                     if ("request" in arg && arg.request instanceof Request) {
                         const request = mapRequest(arg.request);
+                        const path = request.url.split(origin())[1];
+                        const hasCorrelationId = isCorrelationId(
+                            request.headers[CORRELATION_ID_HEADER],
+                        );
 
-                        if (
-                            request.headers[CORRELATION_ID_HEADER]?.length > 0
-                        ) {
+                        if (hasCorrelationId) {
                             delete request.headers[CORRELATION_ID_HEADER];
                         }
 
                         // @ts-expect-error sht
                         args[0] = {
                             ...extras,
+                            msg: path,
                             requestInfo: request,
                         };
                         break;

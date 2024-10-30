@@ -1,5 +1,7 @@
 import { join } from "path";
 
+import { UUIDV4 } from "@/lib/regex";
+
 import {
     DEFAULT_LANG,
     LANGS,
@@ -50,4 +52,8 @@ export function origin() {
     const port = IS_PRODUCTION ? "" : ":" + env.PORT;
 
     return protocol + env.HOST + port;
+}
+
+export function isCorrelationId(value: unknown): boolean {
+    return typeof value === "string" && UUIDV4.test(value);
 }
