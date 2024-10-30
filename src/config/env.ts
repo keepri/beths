@@ -27,7 +27,7 @@ export const env = createEnv({
         GITHUB_CLIENT_SECRET: z.string().min(1).optional(),
 
         // database
-        DATABASE_URL: z.string().min(1),
+        DATABASE_URL: z.string().min(1).optional(),
         DATABASE_AUTH_TOKEN: z.string().min(1).optional(),
         DATABASE_SYNC_URL: z.string().min(1).optional(),
 
