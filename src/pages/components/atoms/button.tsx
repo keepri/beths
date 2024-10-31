@@ -13,7 +13,7 @@ export function Button(props: Props) {
             hx-trigger="click delay:250ms"
             class={clsx(
                 local.class,
-                "text-white border rounded py-1 px-3 active:scale-95",
+                "border rounded py-1 px-3 active:scale-95",
             )}
             {...others}
         >

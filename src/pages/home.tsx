@@ -2,12 +2,13 @@
 import { Html } from "@elysiajs/html";
 
 import { Button } from "@/pages/components/atoms/button";
-import { BaseHtml } from "@/pages/components/server/base-html";
+import { Page } from "@/pages/components/server/page";
+import { createAPIPath } from "@/routes/lib/api-path";
 
 export function HomePage() {
     return (
-        <BaseHtml>
-            <body class="bg-sky-700">
+        <Page>
+            <main class="container">
                 <h1 class="text-sky-500">
                     Hello,
                     <span class="text-rose-400"> world!</span>
@@ -17,10 +18,10 @@ export function HomePage() {
                     <h1 class="text-blue-300">Hello from child node.</h1>
                 </x-demo>
 
-                <Button class="block" hx-get="/api/v1/healthz">
+                <Button class="block" hx-get={createAPIPath("/healthz")}>
                     HTMX is...
                 </Button>
-            </body>
-        </BaseHtml>
+            </main>
+        </Page>
     );
 }

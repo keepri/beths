@@ -23,6 +23,7 @@
     "clean": "rm -fr .out node_modules static/bundle.min.js static/styles.css"
   },
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.15",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/bun": "^1.1.12",
     "@types/eslint": "^8.56.12",

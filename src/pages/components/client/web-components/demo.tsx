@@ -39,9 +39,7 @@ if (!isServer) {
                 <>
                     {children[0] as "safe"}
 
-                    <Suspense
-                        fallback={<h1 class="text-white">Wait for it...</h1>}
-                    >
+                    <Suspense fallback={<h1>Wait for it...</h1>}>
                         <h1 safe class="text-white">
                             {resource()}
                         </h1>

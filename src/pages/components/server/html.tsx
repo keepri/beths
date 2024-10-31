@@ -11,7 +11,7 @@ type Props = ParentProps<{
     lang?: AppLanguage;
 }>;
 
-export function BaseHtml(props: Props) {
+export function HtmlTag(props: Props) {
     props.lang ??= env.LANG;
 
     return (
